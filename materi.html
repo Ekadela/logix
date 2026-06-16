@@ -23,53 +23,107 @@
                 <span class="text-slate-700">|</span>
                 <span class="text-lg font-black tracking-wider bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">LOGIX ACADEMY</span>
             </div>
+            <button onclick="resetProgres()" class="text-xs text-red-400 hover:text-red-300 bg-red-500/10 border border-red-500/20 px-2 py-1 rounded font-mono">
+                Reset Progres
+            </button>
         </div>
     </nav>
 
     <main class="container mx-auto max-w-5xl px-6 py-10 flex-grow">
         <div class="mb-8">
             <h1 class="text-3xl font-extrabold text-white">Daftar Modul Pembelajaran</h1>
-            <p class="text-slate-400 text-sm mt-1">Selesaikan kuis di setiap modul untuk mempersiapkan diri sebelum masuk ke Mode Investigasi.</p>
+            <p class="text-slate-400 text-sm mt-1">Selesaikan kuis di modul sebelumnya untuk membuka materi berikutnya secara otomatis.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div id="gridModul" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             
-            <a href="modul1.html" class="group bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,158,11,0.05)] flex items-start gap-4">
-                <span class="text-2xl bg-amber-500/10 p-2.5 rounded-xl group-hover:scale-110 transition-transform">📖</span>
+            <a href="modul1.html" class="group bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition-all duration-300 flex items-start gap-4">
+                <span id="iconM1" class="text-2xl bg-amber-500/10 p-2.5 rounded-xl group-hover:scale-110 transition-transform">📖</span>
                 <div>
-                    <span class="text-xs font-bold text-amber-400 font-mono">MODUL 01</span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-amber-400 font-mono">MODUL 01</span>
+                        <span id="badgeM1" class="hidden text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded border border-emerald-500/30 font-bold">SELESAI</span>
+                    </div>
                     <h3 class="text-base font-bold text-slate-200 group-hover:text-amber-400 transition-colors mt-0.5">Proposisi</h3>
                     <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Mengenali informasi yang dapat dijadikan fakta atau bukti nyata.</p>
                 </div>
             </a>
 
-            <script>
-                const moduls = [
-                    "Negasi", "Konjungsi", "Disjunsi", "Implikasi", "Biimplikasi",
-                    "Tabel Kebenaran", "Tautologi", "Kontradiksi", "Aturan Inferensi",
-                    "Modus Ponens", "Modus Tollens", "Silogisme", "Penarikan Kesimpulan"
-                ];
-                moduls.forEach((name, i) => {
-                    const no = String(i + 2).padStart(2, '0');
-                    document.write(`
-                        <div class="bg-slate-950 border border-slate-900/60 p-5 rounded-2xl opacity-40 cursor-not-allowed flex items-start gap-4">
-                            <span class="text-2xl bg-slate-900 p-2.5 rounded-xl">🔒</span>
-                            <div>
-                                <span class="text-xs font-bold text-slate-500 font-mono">MODUL ${no}</span>
-                                <h3 class="text-base font-medium text-slate-400 mt-0.5">${name}</h3>
-                                <p class="text-xs text-slate-500 mt-1.5">Materi ini masih terkunci.</p>
-                            </div>
-                        </div>
-                    `);
-                });
-            </script>
-
-        </div>
+            </div>
     </main>
 
     <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500 font-mono">
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
+    <script>
+        // Cek status pengerjaan dari localStorage browser
+        const modul1Selesai = localStorage.getItem('modul1_done') === 'true';
+        const modul2Selesai = localStorage.getItem('modul2_done') === 'true';
+
+        // Tampilkan badge SELESAI di modul 1 kalau sudah beres
+        if (modul1Selesai) {
+            document.getElementById('badgeM1').classList.remove('hidden');
+            document.getElementById('iconM1').innerText = "✅";
+        }
+
+        // List sisa modul (Modul 2 sampai 14)
+        const sisaModul = [
+            { id: 2, name: "Negasi", desc: "Mempelajari pengingkaran atau penyangkalan dari suatu proposisi.", unlocked: modul1Selesai, done: modul2Selesai, file: "modul2.html" },
+            { id: 3, name: "Konjungsi", desc: "Menghubungkan dua pernyataan menggunakan logika 'DAN'.", unlocked: modul2Selesai, done: false, file: "modul3.html" },
+            { id: 4, name: "Disjunsi", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 5, name: "Implikasi", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 6, name: "Biimplikasi", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 7, name: "Tabel Kebenaran", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 8, name: "Tautologi", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 9, name: "Kontradiksi", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 10, name: "Aturan Inferensi", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 11, name: "Modus Ponens", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 12, name: "Modus Tollens", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 13, name: "Silogisme", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" },
+            { id: 14, name: "Penarikan Kesimpulan", desc: "Materi logika matematika dasar.", unlocked: false, done: false, file: "#" }
+        ];
+
+        const grid = document.getElementById('gridModul');
+
+        sisaModul.forEach(m => {
+            const noStr = String(m.id).padStart(2, '0');
+            
+            if (m.unlocked) {
+                // TAMPILAN TERBUKA (BISA DIKLIK)
+                grid.innerHTML += `
+                    <a href="${m.file}" class="group bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition-all duration-300 flex items-start gap-4">
+                        <span class="text-2xl bg-amber-500/10 p-2.5 rounded-xl group-hover:scale-110 transition-transform">${m.done ? '✅' : '📖'}</span>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-amber-400 font-mono">MODUL ${noStr}</span>
+                                ${m.done ? `<span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded border border-emerald-500/30 font-bold">SELESAI</span>` : ''}
+                            </div>
+                            <h3 class="text-base font-bold text-slate-200 group-hover:text-amber-400 transition-colors mt-0.5">${m.name}</h3>
+                            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">${m.desc}</p>
+                        </div>
+                    </a>
+                `;
+            } else {
+                // TAMPILAN TERKUNCI (GAMBAR GEMBOK)
+                grid.innerHTML += `
+                    <div class="bg-slate-950 border border-slate-900/60 p-5 rounded-2xl opacity-40 cursor-not-allowed flex items-start gap-4">
+                        <span class="text-2xl bg-slate-900 p-2.5 rounded-xl">🔒</span>
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 font-mono">MODUL ${noStr}</span>
+                            <h3 class="text-base font-medium text-slate-400 mt-0.5">${m.name}</h3>
+                            <p class="text-xs text-slate-500 mt-1.5">Selesaikan modul sebelumnya.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        function resetProgres() {
+            localStorage.clear();
+            alert("Progres dibersihkan! Semua modul kembali terkunci.");
+            window.location.reload();
+        }
+    </script>
 </body>
 </html>
