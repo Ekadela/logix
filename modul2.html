@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIX — Modul 2: Negasi</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <nav class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-4xl px-6 h-16 flex items-center justify-between">
+            <a href="materi.html" class="text-slate-400 hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">
+                &larr; Kembali ke Daftar Modul
+            </a>
+            <div class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-mono">
+                Fase Dasar
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto max-w-4xl px-6 py-10 flex-grow space-y-8">
+        
+        <section class="border-b border-slate-800 pb-6">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest font-mono">Academy Mode // Modul 02</span>
+            <h1 class="text-4xl font-extrabold text-white mt-1 mb-2">Negasi</h1>
+            <p class="text-lg text-slate-400 font-light">Memahami Kebalikan dari Sebuah Pernyataan</p>
+        </section>
+
+        <section class="bg-slate-900 border border-slate-800 rounded-xl p-5">
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">🎯 Tujuan Pembelajaran</h3>
+            <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-sm">
+                <li>Memahami pengertian negasi.</li>
+                <li>Menentukan negasi dari suatu proposisi.</li>
+                <li>Membedakan negasi yang benar dan yang keliru.</li>
+            </ul>
+        </section>
+
+        <section class="space-y-6 text-slate-300 leading-relaxed text-base">
+            <div>
+                <h3 class="text-xl font-bold text-white mb-2">Apa Itu Negasi?</h3>
+                <p class="mb-3">
+                    Dalam kehidupan sehari-hari, kita sering menemukan pernyataan yang menyangkal atau membantah suatu informasi. Perhatikan dua klaim detektif berikut:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-3 font-mono text-sm">
+                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">"Hari ini hujan."</div>
+                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">"Hari ini tidak hujan."</div>
+                </div>
+                <p>
+                    Kedua pernyataan tersebut tidak mungkin benar secara bersamaan. Jika salah satunya benar, yang lain pasti salah.
+                </p>
+                <blockquote class="border-l-4 border-amber-500 bg-amber-500/5 px-4 py-3 rounded-r-xl font-medium text-slate-200 my-4">
+                    Dalam logika matematika, <strong>pernyataan yang menyangkal suatu proposisi disebut negasi</strong>. Jika suatu proposisi dilambangkan dengan <span class="text-amber-400 font-mono font-bold">p</span>, maka negasinya dilambangkan dengan <span class="text-amber-400 font-mono font-bold">¬p</span> (dibaca "tidak p").
+                </blockquote>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold text-white mb-3">🕵️‍♂️ Contoh Kasus Negasi</h3>
+                <div class="space-y-2 text-sm font-mono">
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 flex flex-col sm:flex-row justify-between">
+                        <span><strong class="text-amber-400">p:</strong> "Andi berada di perpustakaan."</span>
+                        <span class="text-slate-400"><strong class="text-orange-400">¬p:</strong> "Andi tidak berada di perpustakaan."</span>
+                    </div>
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 flex flex-col sm:flex-row justify-between">
+                        <span><strong class="text-amber-400">p:</strong> "7 adalah bilangan ganjil."</span>
+                        <span class="text-slate-400"><strong class="text-orange-400">¬p:</strong> "7 bukan bilangan ganjil."</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-red-950/10 border border-red-500/20 p-5 rounded-xl space-y-3">
+                <h4 class="font-bold text-red-400 flex items-center gap-2 border-b border-red-500/10 pb-2">
+                    ⚠️ Peringatan Analisis: Kesalahan yang Sering Terjadi
+                </h4>
+                <p class="text-sm">
+                    Banyak orang mengira negasi berarti mengganti pernyataan dengan informasi tempat/kondisi lain. Padahal, <span class="text-amber-400">negasi hanya menyangkal pernyataan semula</span>, bukan menebak alternatif lain!
+                </p>
+                <div class="bg-slate-950 p-4 rounded-lg space-y-2 text-sm">
+                    <p class="font-mono text-slate-400">Klaim: "Andi berada di perpustakaan."</p>
+                    <div class="flex items-center gap-2 text-emerald-400 font-medium">✓ Negasi Benar: "Andi tidak berada di perpustakaan."</div>
+                    <div class="flex items-center gap-2 text-red-400 font-medium">❌ Negasi SALAH: "Andi berada di kantin."</div>
+                </div>
+                <p class="text-xs text-slate-400 italic">
+                    *Alasan: Karena Andi bisa saja berada di kelas, lapangan, atau rumah. Menolak dia ada di perpus bukan berarti dia pasti di kantin.
+                </p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
+                <h4 class="font-bold text-slate-200 mb-2 text-sm uppercase tracking-wider">📋 Lembar Kesimpulan</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm text-slate-400">
+                    <li>Negasi adalah pernyataan yang menyangkal suatu proposisi secara mutlak.</li>
+                    <li>Notasi simbol ditulis dengan tanda <span class="text-amber-400 font-mono">¬p</span>.</li>
+                    <li>Negasi tidak meramal informasi baru, melainkan hanya membatalkan pernyataan awal.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="border-t border-slate-800 pt-8 space-y-6">
+            <h3 class="text-2xl font-bold text-white flex items-center gap-2">📝 Quiz Modul 2</h3>
+            
+            <div class="space-y-4">
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="B">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 1: Negasi dari pernyataan: "Rina sedang belajar." adalah...</p>
+                    <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+                        <button onclick="checkAnswer(this, 'A')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Rina sedang bermain.</button>
+                        <button onclick="checkAnswer(this, 'B')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Rina tidak sedang belajar.</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="B">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 2: Negasi dari: "Adi berada di laboratorium." adalah...</p>
+                    <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+                        <button onclick="checkAnswer(this, 'A')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Adi berada di perpustakaan.</button>
+                        <button onclick="checkAnswer(this, 'B')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Adi tidak berada di laboratorium.</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="A">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 3: Negasi dari: "Semua siswa hadir hari ini." adalah...</p>
+                    <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+                        <button onclick="checkAnswer(this, 'A')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Tidak semua siswa hadir hari ini.</button>
+                        <button onclick="checkAnswer(this, 'B')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Semua siswa tidak hadir hari ini.</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="A">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 4: Pernyataan berikut yang merupakan negasi yang benar dari p: "Sinta membawa laptop." adalah...</p>
+                    <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+                        <button onclick="checkAnswer(this, 'A')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Sinta tidak membawa laptop.</button>
+                        <button onclick="checkAnswer(this, 'B')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Sinta membawa tablet.</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="B">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 5: Negasi yang benar dari: "Sekolah dimulai pukul 07.00." adalah...</p>
+                    <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+                        <button onclick="checkAnswer(this, 'A')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Sekolah dimulai pukul 08.00.</button>
+                        <button onclick="checkAnswer(this, 'B')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700 text-left sm:text-center">○ Sekolah tidak dimulai pukul 07.00.</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-5 mt-6">
+            <div class="flex gap-3 items-start">
+                <span class="text-xl">🛡️</span>
+                <div>
+                    <h4 class="font-bold text-amber-400 text-sm uppercase tracking-wide mb-1">Kompetensi yang Diperoleh: Statement Verification</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Kemampuan untuk menguji dan membantah suatu pernyataan dengan tepat berdasarkan aturan logika tanpa membuat asumsi bias baru.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500 font-mono">
+        <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
+    </footer>
+
+    <script>
+        let jumlahTerjawab = 0;
+        function checkAnswer(button, userAnswer) {
+            const box = button.closest('.question-box');
+            const correctAnswer = box.getAttribute('data-correct');
+            const buttons = box.querySelectorAll('button');
+            
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            });
+
+            if (userAnswer === correctAnswer) {
+                button.classList.remove('bg-slate-800', 'border-slate-700', 'opacity-50');
+                button.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-400', 'opacity-100');
+                button.innerHTML = "✓ " + button.innerHTML.substring(2);
+            } else {
+                button.classList.remove('bg-slate-800', 'border-slate-700', 'opacity-50');
+                button.classList.add('bg-red-500/20', 'border-red-500', 'text-red-400', 'opacity-100');
+                button.innerHTML = "✗ " + button.innerHTML.substring(2);
+                
+                buttons.forEach(btn => {
+                    const label = btn.innerHTML.includes('○ ') ? btn.innerHTML.substring(2) : btn.innerHTML.substring(2);
+                    if(btn !== button && (correctAnswer === 'A' ? btn.innerHTML.includes(label) : btn.innerHTML.includes(label))) {
+                        // Highlight sekilas pendukung visual
+                    }
+                });
+            }
+
+            jumlahTerjawab++;
+            if(jumlahTerjawab === 5) {
+                localStorage.setItem('modul2_done', 'true');
+                alert("🎉 Hebat! Modul 2 Berhasil Diselesaikan. Modul 3 (Konjungsi) kini telah terbuka!");
+            }
+        }
+    </script>
+</body>
+</html>
