@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIX — Academy Mode</title>
+    <title>LOGIX — Academy Menu</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,9 +14,8 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
 
-    <!-- NAVIGATION BAR -->
     <nav class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
-        <div class="container mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+        <div class="container mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <a href="index.html" class="text-slate-400 hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">
                     &larr; Kembali ke Dashboard
@@ -24,311 +23,53 @@
                 <span class="text-slate-700">|</span>
                 <span class="text-lg font-black tracking-wider bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">LOGIX ACADEMY</span>
             </div>
-            <div id="faseBadge" class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-mono">
-                Fase Dasar
-            </div>
         </div>
     </nav>
 
-    <!-- MAIN INTERFACE: SIDEBAR + CONTENT -->
-    <div class="container mx-auto max-w-6xl flex-grow grid grid-cols-1 md:grid-cols-4 gap-6 p-6">
-        
-        <!-- LEFT SIDEBAR: MODUL LIST (1-14) -->
-        <aside id="sidebarModul" class="md:col-span-1 space-y-2 h-[calc(100vh-7rem)] overflow-y-auto pr-2 border-r border-slate-900">
-            <div class="text-xs font-bold text-slate-500 uppercase tracking-widest px-3 mb-3">Daftar Modul</div>
-            <!-- Diisi otomatis oleh JavaScript -->
-        </aside>
+    <main class="container mx-auto max-w-5xl px-6 py-10 flex-grow">
+        <div class="mb-8">
+            <h1 class="text-3xl font-extrabold text-white">Daftar Modul Pembelajaran</h1>
+            <p class="text-slate-400 text-sm mt-1">Selesaikan kuis di setiap modul untuk mempersiapkan diri sebelum masuk ke Mode Investigasi.</p>
+        </div>
 
-        <!-- RIGHT: MODUL CONTENT -->
-        <main class="md:col-span-3 space-y-8 bg-slate-900/40 border border-slate-900 rounded-2xl p-6 md:p-8 h-[calc(100vh-7rem)] overflow-y-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             
-            <div id="modulMainContent" class="space-y-8">
-                <!-- Header Materi -->
-                <section class="border-b border-slate-800 pb-6">
-                    <h1 id="matTitle" class="text-3xl font-extrabold text-white mb-2"><!-- Diisi JS --></h1>
-                    <p id="matSubtitle" class="text-lg text-amber-400 font-medium"><!-- Diisi JS --></p>
-                </section>
+            <a href="modul1.html" class="group bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(245,158,11,0.05)] flex items-start gap-4">
+                <span class="text-2xl bg-amber-500/10 p-2.5 rounded-xl group-hover:scale-110 transition-transform">📖</span>
+                <div>
+                    <span class="text-xs font-bold text-amber-400 font-mono">MODUL 01</span>
+                    <h3 class="text-base font-bold text-slate-200 group-hover:text-amber-400 transition-colors mt-0.5">Proposisi</h3>
+                    <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Mengenali informasi yang dapat dijadikan fakta atau bukti nyata.</p>
+                </div>
+            </a>
 
-                <!-- Tujuan Pembelajaran -->
-                <section class="bg-slate-900 border border-slate-800 rounded-xl p-5">
-                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">🎯 Tujuan Pembelajaran</h3>
-                    <ul id="matTujuan" class="list-disc list-inside space-y-1.5 text-slate-300 text-sm">
-                        <!-- Diisi via JS -->
-                    </ul>
-                </section>
-
-                <!-- Isi Materi Utama -->
-                <section id="matBody" class="space-y-6 text-slate-300 leading-relaxed text-sm md:text-base">
-                    <!-- Diisi via JS -->
-                </section>
-
-                <!-- KUIS INTERAKTIF -->
-                <section class="border-t border-slate-800 pt-8 space-y-6">
-                    <h3 class="text-2xl font-bold text-white flex items-center gap-2">📝 Quiz Modul</h3>
-                    <p class="text-sm text-slate-400">Uji pemahamanmu sebelum lanjut ke investigasi lapangan. Pilih jawaban yang menurutmu paling tepat!</p>
-
-                    <div id="quizContainer" class="space-y-6">
-                        <!-- Diisi via JS -->
-                    </div>
-                </section>
-
-                <!-- KOMPETENSI -->
-                <section class="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-5 mt-6">
-                    <div class="flex gap-3 items-start">
-                        <span class="text-xl">🛡️</span>
-                        <div>
-                            <h4 id="kompetensiTitle" class="font-bold text-amber-400 text-sm uppercase tracking-wide mb-1">Kompetensi yang Diperoleh</h4>
-                            <p id="kompetensiDesc" class="text-xs text-slate-300 leading-relaxed">
-                                <!-- Diisi via JS -->
-                            </p>
+            <script>
+                const moduls = [
+                    "Negasi", "Konjungsi", "Disjunsi", "Implikasi", "Biimplikasi",
+                    "Tabel Kebenaran", "Tautologi", "Kontradiksi", "Aturan Inferensi",
+                    "Modus Ponens", "Modus Tollens", "Silogisme", "Penarikan Kesimpulan"
+                ];
+                moduls.forEach((name, i) => {
+                    const no = String(i + 2).padStart(2, '0');
+                    document.write(`
+                        <div class="bg-slate-950 border border-slate-900/60 p-5 rounded-2xl opacity-40 cursor-not-allowed flex items-start gap-4">
+                            <span class="text-2xl bg-slate-900 p-2.5 rounded-xl">🔒</span>
+                            <div>
+                                <span class="text-xs font-bold text-slate-500 font-mono">MODUL ${no}</span>
+                                <h3 class="text-base font-medium text-slate-400 mt-0.5">${name}</h3>
+                                <p class="text-xs text-slate-500 mt-1.5">Materi ini masih terkunci.</p>
+                            </div>
                         </div>
-                    </div>
-                </section>
-            </div>
+                    `);
+                });
+            </script>
 
-        </main>
-    </div>
+        </div>
+    </main>
 
-    <!-- FOOTER -->
     <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500 font-mono">
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
-    <!-- LOGIKA JAVASCRIPT: DATABASE MODUL & SISTEM SPA -->
-    <script>
-        // --- DATABASE TEMPAT PENYIMPANAN TEKS MODUL ---
-        const databaseModul = {
-            1: {
-                title: "MODUL 1 — Proposisi",
-                subtitle: "Mengenali Informasi yang Dapat Dijadikan Fakta",
-                fase: "Fase Dasar",
-                tujuan: [
-                    "Memahami pengertian proposisi.",
-                    "Membedakan proposisi dan bukan proposisi.",
-                    "Menentukan nilai kebenaran suatu proposisi sederhana."
-                ],
-                bodyHTML: `
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-2">Apa Itu Proposisi?</h3>
-                        <p class="mb-3">
-                            Dalam kehidupan sehari-hari, kita sering menerima berbagai informasi, seperti berita, pernyataan, pertanyaan, maupun perintah. Namun, tidak semua informasi dapat digunakan sebagai dasar untuk menarik kesimpulan.
-                        </p>
-                        <blockquote class="border-l-4 border-amber-500 bg-amber-500/5 px-4 py-3 rounded-r-xl font-medium text-slate-200 my-4">
-                            Dalam logika matematika, <span class="text-amber-400 font-semibold">proposisi adalah kalimat yang memiliki nilai kebenaran yang jelas</span>, yaitu dapat dinyatakan <span class="text-emerald-400 font-bold">BENAR</span> atau <span class="text-red-400 font-bold">SALAH</span>.
-                        </blockquote>
-                        <p>
-                            Nilai kebenaran tersebut tidak harus selalu benar. Sebuah kalimat tetap disebut proposisi selama kita dapat menentukan dengan pasti apakah kalimat tersebut valid (benar) atau keliru (salah).
-                        </p>
-                    </div>
-
-                    <!-- DESAIN GRID CONTOH YANG MENARIK -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                        <!-- Kotak Proposisi -->
-                        <div class="bg-emerald-950/20 border border-emerald-500/20 p-5 rounded-xl space-y-3">
-                            <h4 class="font-bold text-emerald-400 flex items-center gap-2 border-b border-emerald-500/20 pb-2 text-base">
-                                🕵️‍♂️ Contoh Proposisi (Bisa Dijadikan Bukti)
-                            </h4>
-                            <p class="text-xs text-slate-400 italic mb-2">Kalimat-kalimat di bawah ini sah disebut proposisi karena status kebenarannya jelas dan mutlak.</p>
-                            <ul class="space-y-2.5 text-sm">
-                                <li class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded border border-slate-800">
-                                    <span>"Jakarta adalah ibu kota Indonesia."</span> 
-                                    <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-0.5 rounded font-bold border border-emerald-500/30">Benar</span>
-                                </li>
-                                <li class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded border border-slate-800">
-                                    <span>"2 + 3 = 10"</span> 
-                                    <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded font-bold border border-red-500/30">Salah</span>
-                                </li>
-                                <li class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded border border-slate-800">
-                                    <span>"Semua bilangan genap habis dibagi 2."</span> 
-                                    <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-0.5 rounded font-bold border border-emerald-500/30">Benar</span>
-                                </li>
-                                <li class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded border border-slate-800">
-                                    <span>"Aceh berada di Pulau Jawa."</span> 
-                                    <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded font-bold border border-red-500/30">Salah</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Kotak Bukan Proposisi -->
-                        <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-3">
-                            <h4 class="font-bold text-slate-400 flex items-center gap-2 border-b border-slate-800 pb-2 text-base">
-                                ❌ Contoh Bukan Proposisi (Abaikan Saat Investigasi)
-                            </h4>
-                            <p class="text-xs text-slate-500 italic mb-2">Kalimat-kalimat ini tidak memiliki nilai kebenaran, sehingga tidak bisa dijadikan dasar penarikan kesimpulan.</p>
-                            <ul class="space-y-2.5 text-sm">
-                                <li class="flex justify-between items-center bg-slate-950/40 p-2.5 rounded border border-slate-900/50">
-                                    <span>"Tutup pintunya!"</span> 
-                                    <span class="text-slate-500 text-xs italic">Kalimat Perintah</span>
-                                </li>
-                                <li class="flex justify-between items-center bg-slate-950/40 p-2.5 rounded border border-slate-900/50">
-                                    <span>"Apakah kamu lapar?"</span> 
-                                    <span class="text-slate-500 text-xs italic">Kalimat Tanya</span>
-                                </li>
-                                <li class="flex justify-between items-center bg-slate-950/40 p-2.5 rounded border border-slate-900/50">
-                                    <span>"Semoga hari ini menyenangkan."</span> 
-                                    <span class="text-slate-500 text-xs italic">Kalimat Harapan</span>
-                                </li>
-                                <li class="flex justify-between items-center bg-slate-950/40 p-2.5 rounded border border-slate-900/50 text-slate-400">
-                                    <span>"x + 5 = 10"</span> 
-                                    <span class="text-amber-500 text-xs font-semibold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Kalimat Terbuka</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- RINGKASAN DESAIN MENARIK -->
-                    <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl mt-6">
-                        <h4 class="font-bold text-slate-200 mb-3 flex items-center gap-2 text-sm uppercase tracking-wider">
-                            📋 Ringkasan Analisis
-                        </h4>
-                        <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-400">
-                            <li><span class="text-slate-200 font-medium">Proposisi</span> wajib mempunyai status nilai kebenaran yang pasti (bisa benar, bisa salah).</li>
-                            <li>Kalimat perintah, pertanyaan, harapan, dan kalimat terbuka <span class="text-red-400">bukan</span> merupakan proposisi.</li>
-                            <li>Kemampuan mengenali proposisi merupakan langkah awal yang krusial bagi seorang detektif untuk menyaring fakta dari gosip belaka.</li>
-                        </ul>
-                    </div>
-                `,
-                quiz: [
-                    { q: '"Indonesia memiliki 38 provinsi." Apakah kalimat tersebut merupakan proposisi?', a: 'benar' },
-                    { q: '"Tolong matikan lampunya!" Apakah kalimat tersebut merupakan proposisi?', a: 'salah' },
-                    { q: '"x > 5" Apakah kalimat tersebut merupakan proposisi?', a: 'salah' },
-                    { q: '"Semua segitiga memiliki tiga sisi." Apakah kalimat tersebut merupakan proposisi?', a: 'benar' },
-                    { q: '"Apakah hari ini hujan?" Apakah kalimat tersebut merupakan proposisi?', a: 'salah' }
-                ],
-                kompetensi: {
-                    title: "Evidence Recognition",
-                    desc: "Kemampuan untuk membedakan informasi yang dapat digunakan sebagai fakta atau bukti dari informasi yang tidak memiliki nilai kebenaran yang jelas."
-                }
-            }
-            // MODUL 2-14 DIMASUKKAN DI SINI NANTI
-        };
-
-        const daftarNamaModul = [
-            "Proposisi", "Negasi", "Konjungsi", "Disjungsi", "Implikasi", "Biimplikasi", 
-            "Tabel Kebenaran", "Tautologi", "Kontradiksi", "Aturan Inferensi", 
-            "Modus Ponens", "Modus Tollens", "Silogisme", "Penarikan Kesimpulan"
-        ];
-
-        let modulSekarang = 1;
-
-        // --- RENDER SIDEBAR MENU ---
-        function renderSidebar() {
-            const sidebar = document.getElementById('sidebarModul');
-            sidebar.innerHTML = '<div class="text-xs font-bold text-slate-500 uppercase tracking-widest px-3 mb-3">Daftar Modul</div>';
-            
-            daftarNamaModul.forEach((name, index) => {
-                const noModul = index + 1;
-                const isLocked = !databaseModul[noModul];
-                
-                if (noModul === modulSekarang) {
-                    sidebar.innerHTML += `
-                        <button class="w-full text-left bg-slate-900 border border-amber-500/50 p-3 rounded-xl flex items-center gap-3 transition-all">
-                            <span class="text-xl">📖</span>
-                            <div>
-                                <div class="text-xs font-bold text-amber-400">MODUL ${noModul}</div>
-                                <div class="text-sm font-semibold text-slate-200">${name}</div>
-                            </div>
-                        </button>
-                    `;
-                } else if (isLocked) {
-                    sidebar.innerHTML += `
-                        <div class="w-full text-left bg-slate-950 border border-slate-900/60 p-3 rounded-xl flex items-center justify-between opacity-30 cursor-not-allowed">
-                            <div class="flex items-center gap-3">
-                                <span class="text-xl">🔒</span>
-                                <div>
-                                    <div class="text-xs font-bold text-slate-500">MODUL ${noModul}</div>
-                                    <div class="text-sm font-medium text-slate-400">${name}</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    sidebar.innerHTML += `
-                        <button onclick="pindahModul(${noModul})" class="w-full text-left bg-slate-950 hover:bg-slate-900 border border-slate-900 p-3 rounded-xl flex items-center gap-3 transition-all group">
-                            <span class="text-xl opacity-60 group-hover:opacity-100">📖</span>
-                            <div>
-                                <div class="text-xs font-bold text-slate-500 group-hover:text-slate-400">MODUL ${noModul}</div>
-                                <div class="text-sm font-medium text-slate-300">${name}</div>
-                            </div>
-                        </button>
-                    `;
-                }
-            });
-        }
-
-        // --- LOAD CONTENT ---
-        function loadModulContent(id) {
-            const data = databaseModul[id];
-            if (!data) return;
-
-            document.getElementById('faseBadge').innerText = data.fase;
-            document.getElementById('matTitle').innerText = data.title;
-            document.getElementById('matSubtitle').innerText = data.subtitle;
-            
-            const tujuanList = document.getElementById('matTujuan');
-            tujuanList.innerHTML = '';
-            data.tujuan.forEach(t => {
-                tujuanList.innerHTML += `<li>${t}</li>`;
-            });
-
-            document.getElementById('matBody').innerHTML = data.bodyHTML;
-            document.getElementById('kompetensiTitle').innerText = "Kompetensi: " + data.kompetensi.title;
-            document.getElementById('kompetensiDesc').innerText = data.kompetensi.desc;
-
-            const quizContainer = document.getElementById('quizContainer');
-            quizContainer.innerHTML = '';
-            data.quiz.forEach((qData, index) => {
-                quizContainer.innerHTML += `
-                    <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="${qData.a}">
-                        <p class="font-semibold text-slate-200 mb-3">Soal ${index + 1}: ${qData.q}</p>
-                        <div class="flex gap-4">
-                            <button onclick="checkAnswer(this, 'benar')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all font-medium border border-slate-700">○ Benar</button>
-                            <button onclick="checkAnswer(this, 'salah')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all font-medium border border-slate-700">○ Salah</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        // --- CHECK QUIZ ANSWER ---
-        function checkAnswer(button, userAnswer) {
-            const box = button.closest('.question-box');
-            const correctAnswer = box.getAttribute('data-correct');
-            const buttons = box.querySelectorAll('button');
-            
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                btn.classList.add('opacity-50', 'cursor-not-allowed');
-            });
-
-            if (userAnswer === correctAnswer) {
-                button.classList.remove('bg-slate-800', 'border-slate-700', 'opacity-50');
-                button.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-400', 'opacity-100');
-                button.innerHTML = "✓ " + button.innerHTML.substring(2);
-            } else {
-                button.classList.remove('bg-slate-800', 'border-slate-700', 'opacity-50');
-                button.classList.add('bg-red-500/20', 'border-red-500', 'text-red-400', 'opacity-100');
-                button.innerHTML = "✗ " + button.innerHTML.substring(2);
-                
-                buttons.forEach(btn => {
-                    if(btn !== button && correctAnswer === (btn.innerHTML.includes('Benar') ? 'benar' : 'salah')) {
-                        btn.classList.remove('opacity-50');
-                        btn.classList.add('border-emerald-500/50', 'text-emerald-500/70');
-                    }
-                });
-            }
-        }
-
-        function pindahModul(id) {
-            modulSekarang = id;
-            renderSidebar();
-            loadModulContent(id);
-            document.querySelector('main').scrollTop = 0;
-        }
-
-        // Inisialisasi Pertama
-        renderSidebar();
-        loadModulContent(1);
-    </script>
 </body>
 </html>
