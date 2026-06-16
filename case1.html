@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIX — Investigation: Case 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .code-font { font-family: 'JetBrains Mono', monospace; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-red-500/30">
+
+    <nav class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-3xl px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <a href="investigasi-menu.html" class="text-slate-400 hover:text-white transition-colors text-sm font-semibold">&larr; Keluar Menu Kasus</a>
+                <span class="text-slate-800">|</span>
+                <span class="text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-2.5 py-1 rounded font-mono uppercase tracking-wider">CASE 01</span>
+            </div>
+            <div class="text-xs text-slate-400 font-mono">
+                Screen: <span id="progressText" class="text-red-400">1 / 13</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto max-w-3xl px-6 py-8 flex-grow flex flex-col justify-center">
+        <div class="bg-slate-900/50 border border-slate-900 rounded-2xl p-6 md:p-8 min-h-[440px] flex flex-col justify-between shadow-xl backdrop-blur-sm">
+            
+            <div id="screenContainer" class="flex-grow">
+
+                <div id="screen1" class="screen active space-y-4">
+                    <div class="text-xs font-bold text-red-400 uppercase tracking-widest code-font">// CASE FILE OPENED</div>
+                    <h2 class="text-2xl font-extrabold text-white">The Missing Answer Key</h2>
+                    <p class="text-xs bg-slate-950 text-slate-400 border border-slate-800 px-2.5 py-1 rounded w-fit code-font">Konsep: Proposisi, Negasi, Konjungsi, Disjungsi</p>
+                    <div class="space-y-3 text-slate-300 text-sm md:text-base leading-relaxed pt-2">
+                        <p>🔑 Kunci jawaban ujian matematika hilang dari ruang guru pada jam istirahat.</p>
+                        <p>👥 Pihak sekolah berhasil mengidentifikasi lima siswa yang berada di area gedung akademik saat kejadian berlangsung.</p>
+                        <p>🕵️‍♂️ <strong class="text-white">Tugasmu:</strong> Analisis informasi yang tersedia dan tentukan siapa pelakunya berdasarkan aturan logika matematika.</p>
+                    </div>
+                </div>
+
+                <div id="screen2" class="screen space-y-4">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest code-font">// SUSPECT LIST & INITIAL ALIBI</div>
+                    <h2 class="text-xl font-bold text-white">Daftar Tersangka & Pernyataan</h2>
+                    <p class="text-xs text-slate-400">Berikut adalah profil singkat beserta kalimat pernyataan awal yang mereka ucapkan:</p>
+                    <div class="space-y-2 text-xs md:text-sm">
+                        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-900"><strong class="text-white">Amy:</strong> Ketua kelas yang sering mengunjungi perpustakaan. <br><span class="text-red-400 font-mono">"Saya berada di perpustakaan."</span></div>
+                        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-900"><strong class="text-white">Bella:</strong> Pengurus kantin. <br><span class="text-red-400 font-mono">"Saya berada di kantin."</span></div>
+                        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-900"><strong class="text-white">Cindy:</strong> Asisten laboratorium. <br><span class="text-red-400 font-mono">"Saya berada di laboratorium dan mengerjakan tugas kelompok."</span></div>
+                        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-900"><strong class="text-white">Dion:</strong> Anggota klub robotika. <br><span class="text-red-400 font-mono">"Saya berada di ruang klub atau lapangan basket."</span></div>
+                        <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-900"><strong class="text-white">Emely:</strong> Anggota klub matematika. <br><span class="text-red-400 font-mono">"Saya berada di taman sekolah."</span></div>
+                    </div>
+                </div>
+
+                <div id="screen3" class="screen space-y-4">
+                    <div class="text-xs font-bold text-red-400 uppercase tracking-widest code-font">// INVESTIGATION DATA SELECTION</div>
+                    <h2 class="text-xl font-bold text-white">Informasi Tambahan [Proposisi]</h2>
+                    <p class="text-xs text-slate-400">Petugas sekolah memberikan beberapa catatan di bawah ini. <strong class="text-white">Pilih informasi yang dapat digunakan sebagai fakta investigasi (berupa Proposisi):</strong></p>
+                    <div id="optionsS3" class="space-y-2 text-xs md:text-sm">
+                        <label class="flex items-center gap-3 bg-slate-950 p-3 rounded-xl cursor-pointer border border-slate-800">
+                            <input type="checkbox" value="1" class="w-4 h-4 rounded text-red-500">
+                            <span>1. Ruang guru berada di lantai dua.</span>
+                        </label>
+                        <label class="flex items-center gap-3 bg-slate-950 p-3 rounded-xl cursor-pointer border border-slate-800">
+                            <input type="checkbox" value="2" class="w-4 h-4 rounded text-red-500">
+                            <span class="text-slate-500">2. Apakah ruang guru sudah dikunci?</span>
+                        </label>
+                        <label class="flex items-center gap-3 bg-slate-950 p-3 rounded-xl cursor-pointer border border-slate-800">
+                            <input type="checkbox" value="3" class="w-4 h-4 rounded text-red-500">
+                            <span>3. CCTV koridor aktif hingga pukul 10.30.</span>
+                        </label>
+                        <label class="flex items-center gap-3 bg-slate-950 p-3 rounded-xl cursor-pointer border border-slate-800">
+                            <input type="checkbox" value="4" class="w-4 h-4 rounded text-red-500">
+                            <span class="text-slate-500">4. Tolong matikan lampu sebelum pulang.</span>
+                        </label>
+                        <label class="flex items-center gap-3 bg-slate-950 p-3 rounded-xl cursor-pointer border border-slate-800">
+                            <input type="checkbox" value="5" class="w-4 h-4 rounded text-red-500">
+                            <span>5. Lemari penyimpanan dokumen berada di ruang guru.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="screen4" class="screen space-y-4">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest code-font">// EVIDENCE ITEM #01</div>
+                    <h2 class="text-xl font-bold text-white">Bukti Pertama: CCTV Koridor</h2>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-900 space-y-1 text-xs md:text-sm font-mono">
+                        <p class="text-red-400 font-bold">⏱️ Pukul 09.18</p>
+                        <p>Terdeteksi seseorang berjalan menuju arah ruang guru. Namun karena kualitas rekaman kurang baik, identitas orang tersebut tidak dapat dikenali.</p>
+                    </div>
+                    <div class="pt-2 space-y-3">
+                        <p class="text-sm font-medium">Pertanyaan: Apakah bukti ini cukup untuk menentukan pelaku?</p>
+                        <div class="flex gap-4">
+                            <button onclick="answerS4('Ya')" class="bg-slate-950 border border-slate-800 hover:bg-slate-900 py-2.5 rounded-xl text-sm transition-all w-1/2">○ Ya</button>
+                            <button onclick="answerS4('Tidak')" class="bg-slate-950 border border-slate-800 hover:bg-slate-900 py-2.5 rounded-xl text-sm transition-all w-1/2">○ Tidak</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen5" class="screen space-y-4">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest code-font">// EVIDENCE ITEM #02</div>
+                    <h2 class="text-xl font-bold text-white">Bukti Kedua: CCTV Kantin</h2>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-900 space-y-1 text-xs md:text-sm font-mono">
+                        <p class="text-red-400 font-bold">⏱️ Pukul 09.20</p>
+                        <p>Bella terlihat membeli minuman di kantin.</p>
+                    </div>
+                    <div class="pt-2 space-y-3">
+                        <div class="text-xs text-slate-400 bg-slate-950 p-2 rounded border border-slate-900 code-font">Pernyataan Bella: "Saya berada di kantin."</div>
+                        <p class="text-sm font-medium">Pertanyaan: Bagaimana status pernyataan Bella?</p>
+                        <div class="flex flex-col gap-2">
+                            <button onclick="answerS5('didukung')" class="w-full text-left bg-slate-950 border border-slate-800 p-3 rounded-xl text-xs md:text-sm hover:bg-slate-900">○ Didukung bukti</button>
+                            <button onclick="answerS5('bertentangan')" class="w-full text-left bg-slate-950 border border-slate-800 p-3 rounded-xl text-xs md:text-sm hover:bg-slate-900">○ Bertentangan dengan bukti</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen6" class="screen space-y-4">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest code-font">// EVIDENCE ITEM #03</div>
+                    <h2 class="text-xl font-bold text-white">Bukti Ketiga: CCTV Perpustakaan</h2>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-900 space-y-1 text-xs md:text-sm font-mono">
+                        <p class="text-red-400 font-bold">⏱️ Pukul 09.22</p>
+                        <p>Amy terlihat memasuki perpustakaan.</p>
+                    </div>
+                    <div class="pt-2 space-y-3">
+                        <div class="text-xs text-slate-400 bg-slate-950 p-2 rounded border border-slate-900 code-font">Pernyataan Amy: "Saya berada di perpustakaan."</div>
+                        <p class="text-sm font-medium">Pertanyaan: Bagaimana status pernyataan Amy?</p>
+                        <div class="flex flex-col gap-2">
+                            <button onclick="answerS6('didukung')" class="w-full text-left bg-slate-950 border border-slate-800 p-3 rounded-xl text-xs md:text-sm hover:bg-slate-900">○ Didukung bukti</button>
+                            <button onclick="answerS6('bertentangan')" class="w-full text-left bg-slate-950 border border-slate-800 p-3 rounded-xl text-xs md:text-sm hover:bg-slate-900">○ Bertentangan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen7" class="screen space-y-4">
+                    <div class="text-xs font-bold text-red-400 uppercase tracking-widest code-font">// EVIDENCE ITEM #04 [KONJUNGSI]</div>
+                    <h2 class="text-xl font-bold text-white">Bukti Keempat: CCTV Laboratorium</h2>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-900 space-y-1 text-xs md:text-sm font-mono">
+                        <p class="text-red-400 font-bold">⏱️ Pukul 09.25</p>
+                        <p>Cindy terlihat berada di laboratorium. Tidak ditemukan rekaman yang menunjukkan keberadaan anggota kelompok lain.</p>
+                    </div>
+                    <div class="pt-2 space-y-3">
+                        <div class="text-xs text-slate-400 bg-slate-950 p-2 rounded border border-slate-900 code-font">Pernyataan Cindy: "Saya berada di laboratorium dan mengerjakan tugas kelompok."</div>
+                        <p class="text-sm font-medium">Pertanyaan: Bagian mana yang sudah didukung bukti?</p>
+                        <div id="optionsS7" class="space-y-2 text-xs md:text-sm">
+                            <label class="flex items-center gap-3 bg-slate-950 p-3 rounded-xl cursor-pointer border border-slate-800">
+                                <input type="checkbox" value="lab" class="w-4 h-4 rounded text-red-500">
+                                <span>Berada di laboratorium</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-slate-950 p-3 rounded-xl cursor-pointer border border-slate-800">
+                                <input type="checkbox" value="tugas" class="w-4 h-4 rounded text-red-500">
+                                <span>Mengerjakan tugas kelompok</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen8" class="screen space-y-4">
+                    <div class="text-xs font-bold text-red-400 uppercase tracking-widest code-font">// EVIDENCE ITEM #05 [DISJUNGSI]</div>
+                    <h2 class="text-xl font-bold text-white">Bukti Kelima: Sistem Akses Ruangan</h2>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-900 space-y-1 text-xs md:text-sm font-mono">
+                        <p class="text-red-400 font-bold">⏱️ Pukul 09.15</p>
+                        <p>Dion menggunakan kartu akses ruang klub.</p>
+                    </div>
+                    <div class="pt-2 space-y-3">
+                        <div class="text-xs text-slate-400 bg-slate-950 p-2 rounded border border-slate-900 code-font">Dion mengatakan: "Saya berada di ruang klub atau lapangan basket."</div>
+                        <p class="text-sm font-medium">Pertanyaan: Apakah pernyataan tersebut masih mungkin benar?</p>
+                        <div class="flex gap-4">
+                            <button onclick="answerS8('Ya')" class="bg-slate-950 border border-slate-800 hover:bg-slate-900 py-2.5 rounded-xl text-sm transition-all w-1/2">○ Ya</button>
+                            <button onclick="answerS8('Tidak')" class="bg-slate-950 border border-slate-800 hover:bg-slate-900 py-2.5 rounded-xl text-sm transition-all w-1/2">○ Tidak</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen9" class="screen space-y-4">
+                    <div class="text-xs font-bold text-slate-500 uppercase tracking-widest code-font">// FORENSIC LOG #06</div>
+                    <h2 class="text-xl font-bold text-white">Bukti Besar: Lab Forensik</h2>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-900 space-y-1 text-xs md:text-sm font-mono">
+                        <p>Sidik jari ditemukan pada lemari penyimpanan berkas rahasia.</p>
+                        <p class="text-red-400">Hasil identifikasi: Sidik jari milik Emely.</p>
+                    </div>
+                    <div class="pt-2 space-y-3">
+                        <p class="text-sm font-medium">Pertanyaan: Apakah temuan ini membuktikan Emely sebagai pelaku?</p>
+                        <div class="flex gap-4">
+                            <button onclick="answerS9('Ya')" class="bg-slate-950 border border-slate-800 hover:bg-slate-900 py-2.5 rounded-xl text-sm transition-all w-1/2">○ Ya</button>
+                            <button onclick="answerS9('Tidak')" class="bg-slate-950 border border-slate-800 hover:bg-slate-900 py-2.5 rounded-xl text-sm transition-all w-1/2">○ Tidak</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="screen10" class="screen space-y-4">
+                    <div class="text-xs font-bold text-emerald-400 uppercase tracking-widest code-font">// DATA RECOVERY SUCCESSFUL</div>
+                    <h2 class="text-xl font-bold text-white">Bukti Terakhir: CCTV Ruang Guru</h2>
+                    <p class="text-xs text-slate-400">Rekaman CCTV utama di dalam ruang guru akhirnya berhasil dipulihkan dengan informasi berikut:</p>
+                    <div class="bg-slate-900/80 border border-emerald-500/20 p-4 rounded-xl space-y-1.5 text-xs md:text-sm font-mono text-slate-300">
+                        <p>🚶‍♂️ Pelaku memasuki ruang guru pukul <span class="text-emerald-400 font-bold">09.23 WIB</span>.</p>
+                        <p>🔓 Pelaku membuka lemari penyimpanan.</p>
+                        <p>📂 Pelaku mengambil map dokumen.</p>
+                        <p>🧥 Pelaku mengenakan <span class="text-amber-400 font-bold underline">jaket klub matematika</span>.</p>
+                    </div>
+                </div>
+
+                <div id="screen11" class="screen space-y-4">
+                    <div class="text-xs font-bold text-red-400 uppercase tracking-widest code-font">// CASE SYNTAX BOARD</div>
+                    <h2 class="text-xl font-bold text-white">Investigation Board</h2>
+                    <p class="text-xs text-slate-400">Rangkuman analisis komparasi data fakta di papan bukti:</p>
+                    <div class="space-y-1.5 font-mono text-xs text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-900">
+                        <p>• <strong class="text-white">Amy:</strong> Terlihat di perpustakaan pukul 09.22</p>
+                        <p>• <strong class="text-white">Bella:</strong> Terlihat di kantin pukul 09.20</p>
+                        <p>• <strong class="text-white">Cindy:</strong> Terlihat di laboratorium pukul 09.25</p>
+                        <p>• <strong class="text-white">Dion:</strong> Mengakses ruang klub pukul 09.15</p>
+                        <p>• <strong class="text-white">Emely:</strong> Sidik jari ada di lemari & Anggota klub matematika</p>
+                    </div>
+                    <p class="text-xs text-amber-400 pt-1">Pertanyaan: Berdasarkan seluruh bukti yang tersedia, siapa yang paling mungkin mengambil kunci jawaban?</p>
+                </div>
+
+                <div id="screen12" class="screen space-y-4">
+                    <div class="text-xs font-bold text-red-500 uppercase tracking-widest code-font">// CRITICAL VERDICT</div>
+                    <h2 class="text-xl font-bold text-white">Final Decision</h2>
+                    <p class="text-xs text-slate-400">Ketuk salah satu nama di bawah ini untuk menetapkan tuduhan resmi kelalaian kode:</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                        <button onclick="selectFinalVerdict('Amy')" class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-sm hover:bg-slate-900 transition-colors">Amy</button>
+                        <button onclick="selectFinalVerdict('Bella')" class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-sm hover:bg-slate-900 transition-colors">Bella</button>
+                        <button onclick="selectFinalVerdict('Cindy')" class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-sm hover:bg-slate-900 transition-colors">Cindy</button>
+                        <button onclick="selectFinalVerdict('Dion')" class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-sm hover:bg-slate-900 transition-colors">Dion</button>
+                        <button onclick="selectFinalVerdict('Emely')" class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-sm hover:bg-slate-900 transition-colors">Emely</button>
+                    </div>
+                </div>
+
+                <div id="screen13" class="screen space-y-4">
+                    <div id="revealResultBox">
+                        </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-slate-800/60 pt-4 flex items-center justify-between mt-6">
+                <button id="btnBack" onclick="prevScreen()" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-slate-300 uppercase tracking-wider transition-colors disabled:opacity-20" disabled>
+                    &larr; Kembali
+                </button>
+                
+                <button id="btnNext" onclick="nextScreen()" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_15px_rgba(220,38,38,0.2)]">
+                    Selanjutnya &rarr;
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500 font-mono">
+        <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
+    </footer>
+
+    <script>
+        let currentScreen = 1;
+        const totalScreens = 13;
+
+        function updateUI() {
+            document.getElementById('progressText').innerText = `${currentScreen} / ${totalScreens}`;
+            
+            // Atur Visibilitas Tombol Back
+            const btnBack = document.getElementById('btnBack');
+            if (currentScreen === 1 || currentScreen === 13) {
+                btnBack.disabled = true;
+            } else {
+                btnBack.disabled = false;
+            }
+
+            // Atur Mode Tombol Next secara Otomatis
+            const btnNext = document.getElementById('btnNext');
+            btnNext.style.display = "block"; // Reset default show
+            btnNext.innerText = "Selanjutnya \u2192";
+
+            if (currentScreen === 3) {
+                btnNext.innerText = "Kirim Pilihan Jawaban";
+            } else if (currentScreen === 4 || currentScreen === 5 || currentScreen === 6 || currentScreen === 8 || currentScreen === 9 || currentScreen === 12) {
+                // Di layar-layar ini user wajib memilih opsi secara langsung, tombol next disembunyikan
+                btnNext.style.display = "none";
+            } else if (currentScreen === 7) {
+                btnNext.innerText = "Kirim Verifikasi Konjungsi";
+            } else if (currentScreen === 13) {
+                btnNext.innerText = "Selesai Investigasi";
+            }
+        }
+
+        function nextScreen() {
+            // Validasi Screen 3 (Kuis Proposisi)
+            if (currentScreen === 3) {
+                const checked = Array.from(document.querySelectorAll('#optionsS3 input:checked')).map(el => el.value);
+                if (checked.join(',') === "1,3,5") {
+                    alert("🎯 Benar! Catatan 1, 3, dan 5 merupakan Proposisi karena dapat ditentukan nilai kebenarannya.");
+                } else {
+                    alert("❌ Jawaban belum tepat. Ingat, kalimat tanya (2) dan kalimat perintah (4) bukan merupakan proposisi.");
+                    return;
+                }
+            }
+
+            // Validasi Screen 7 (Kuis Konjungsi)
+            if (currentScreen === 7) {
+                const checked = Array.from(document.querySelectorAll('#optionsS7 input:checked')).map(el => el.value);
+                if (checked.length === 1 && checked[0] === "lab") {
+                    alert("🎯 Tepat sekali! Pernyataan konjungsi bernilai salah jika salah satu bagian salah. Hanya bagian 'Berada di laboratorium' yang didukung bukti.");
+                } else {
+                    alert("❌ Salah. Rekaman CCTV membuktikan Cindy sendirian, jadi dia tidak sedang mengerjakan tugas kelompok. Pilih hanya bagian yang didukung bukti!");
+                    return;
+                }
+            }
+
+            if (currentScreen === 13) {
+                // Selesai game, lempar balik ke menu pilihan kasus
+                window.location.href = "investigasi-menu.html";
+                return;
+            }
+
+            if (currentScreen < totalScreens) {
+                document.getElementById(`screen${currentScreen}`).classList.remove('active');
+                currentScreen++;
+                document.getElementById(`screen${currentScreen}`).classList.add('active');
+                updateUI();
+            }
+        }
+
+        function prevScreen() {
+            if (currentScreen > 1) {
+                document.getElementById(`screen${currentScreen}`).classList.remove('active');
+                currentScreen--;
+                document.getElementById(`screen${currentScreen}`).classList.add('active');
+                updateUI();
+            }
+        }
+
+        function jumpToNext() {
+            document.getElementById(`screen${currentScreen}`).classList.remove('active');
+            currentScreen++;
+            document.getElementById(`screen${currentScreen}`).classList.add('active');
+            updateUI();
+        }
+
+        // --- VALIDATOR EVENT PER SCREEN ---
+        function answerS4(ans) {
+            if (ans === "Tidak") {
+                alert("🎯 Benar! Satu bukti tidak cukup kuat untuk menentukan pelaku.");
+                jumpToNext();
+            } else {
+                alert("❌ Kurang tepat. Kita belum mengetahui identitas asli siluet tersebut.");
+            }
+        }
+
+        function answerS5(ans) {
+            if (ans === "didukung") {
+                alert("🎯 Betul! Pernyataan Bella didukung penuh oleh bukti rekaman CCTV.");
+                jumpToNext();
+            } else {
+                alert("❌ Salah, bukti rekaman jelas menunjukkan keberadaannya di kantin.");
+            }
+        }
+
+        function answerS6(ans) {
+            if (ans === "didukung") {
+                alert("🎯 Betul! Pernyataan Amy terbukti valid dengan rekaman CCTV perpustakaan.");
+                jumpToNext();
+            } else {
+                alert("❌ Salah, datanya tervalidasi sinkron.");
+            }
+        }
+
+        function answerS8(ans) {
+            if (ans === "Ya") {
+                alert("🎯 Luar biasa! Sifat disjungsi (ATAU) tetap bernilai benar meskipun hanya salah satu premisnya yang benar. Karena dia terbukti di ruang klub, kalimatnya secara keseluruhan dianggap Benar.");
+                jumpToNext();
+            } else {
+                alert("❌ Kurang teliti. Ingat aturan tabel kebenaran disjungsi!");
+            }
+        }
+
+        function answerS9(ans) {
+            if (ans === "Tidak") {
+                alert("🎯 Tepat! Sidik jari hanyalah petunjuk fisik kalau dia pernah menyentuh lemari, bukan bukti mutlak bahwa dia melakukan pencurian pada waktu kejadian.");
+                jumpToNext();
+            } else {
+                alert("❌ Salah. Keberadaan sidik jari belum membuktikan dia melakukan aksi pencurian tersebut.");
+            }
+        }
+
+        function selectFinalVerdict(name) {
+            const resultBox = document.getElementById('revealResultBox');
+            if (name === "Emely") {
+                resultBox.innerHTML = `
+                    <div class="text-center space-y-4 py-4">
+                        <div class="text-5xl">🎉</div>
+                        <h2 class="text-2xl font-extrabold text-emerald-400 tracking-wider">Investigasi Berhasil!</h2>
+                        <div class="bg-emerald-950/20 border border-emerald-500/30 p-5 rounded-xl text-xs md:text-sm text-left max-w-md mx-auto space-y-2 text-slate-300">
+                            <p>🕵️‍♂️ Pelaku yang mengambil kunci jawaban adalah <strong class="text-white">Emely</strong>.</p>
+                            <div class="border-t border-emerald-500/10 pt-2 space-y-1 text-slate-400 font-mono text-xs">
+                                <p><strong>Penjelasan:</strong></p>
+                                <p>1. Sidik jari Emely ditemukan pada lemari arsip.</p>
+                                <p>2. Rekaman CCTV Ruang Guru membuktikan pelaku memakai jaket Klub Matematika.</p>
+                                <p>3. Emely terbukti merupakan anggota Klub Matematika.</p>
+                                <p>4. Tidak ditemukan bukti kuat yang mengarah kepada tersangka lainnya.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                resultBox.innerHTML = `
+                    <div class="text-center space-y-4 py-4">
+                        <div class="text-5xl">❌</div>
+                        <h2 class="text-2xl font-extrabold text-red-500 tracking-wider">Investigasi Belum Tepat</h2>
+                        <div class="bg-red-950/20 border border-red-500/30 p-5 rounded-xl text-xs md:text-sm text-left max-w-md mx-auto space-y-2 text-slate-300">
+                            <p>Tersangka <strong class="text-white">${name}</strong> bukan pelaku utamanya karena alibinya terbukti konsisten dan didukung penuh oleh bukti logika matematika.</p>
+                            <button onclick="window.location.reload()" class="w-full mt-3 bg-red-600 hover:bg-red-700 text-white p-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors">Coba Periksa Kembali Bukti</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Alihkan langsung ke screen 13 (Reveal)
+            document.getElementById(`screen${currentScreen}`).classList.remove('active');
+            currentScreen = 13;
+            document.getElementById(`screen${currentScreen}`).classList.add('active');
+            updateUI();
+        }
+
+        // Jalankan UI pembuka
+        updateUI();
+    </script>
+</body>
+</html>
