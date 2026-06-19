@@ -3,80 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIX — Dashboard</title>
+    <title>LOGIX — Think Like a Detective, Solve with Logic</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .code-font { font-family: 'JetBrains Mono', monospace; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-slate-900">
+<body class="bg-[#1E1E1E] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500/30">
 
-    <nav class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
-        <div class="container mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">LOGIX</span>
+    <nav class="w-full absolute top-0 left-0 z-50 bg-transparent">
+        <div class="container mx-auto max-w-6xl px-6 h-20 flex items-center justify-between">
+            <div class="text-2xl font-black tracking-wider text-white flex items-center">
+                LOG<span class="text-amber-500">IX</span>
             </div>
-            <div class="text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
-                v1.0.0-Beta
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="investigasi-menu.html" class="hover:text-white transition-colors">Cases</a>
+                <a href="materi.html" class="hover:text-white transition-colors">Library</a>
+                <a href="#" class="hover:text-white transition-colors">About</a>
+            </div>
+
+            <div>
+                <a href="#" class="border border-amber-500/70 text-amber-400 hover:bg-amber-500 hover:text-slate-950 px-5 py-1.5 rounded text-xs font-bold uppercase tracking-wider transition-all">
+                    Login
+                </a>
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto max-w-4xl px-6 py-12 flex-grow flex flex-col justify-center items-center text-center">
+    <header class="relative w-full min-h-screen flex items-center overflow-hidden pt-20">
         
-        <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-sm">
-            <span>✨</span> Divisi Inovasi Pembelajaran LIDM
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200" 
+                 alt="Detective Desk background" 
+                 class="w-full h-full object-cover object-right md:object-center opacity-30 pointer-events-none">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#1E1E1E] via-[#1E1E1E]/90 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#1E1E1E] via-transparent to-transparent"></div>
         </div>
 
-        <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-4">
-            Selamat Datang, <span class="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">Investigator</span>
-        </h1>
-        <p class="text-lg md:text-xl text-slate-400 max-w-2xl font-light leading-relaxed mb-12">
-            Asah logika matematikamu, kumpulkan bukti, kesaksian, dan pecahkan kasus misteri kriminal menggunakan metode penalaran logis yang valid.
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl px-4">
-            
-            <a href="materi.html" class="group relative bg-slate-900 border border-slate-800 hover:border-amber-500/50 rounded-2xl p-6 text-left transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.05)] flex flex-col justify-between">
-                <div>
-                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                        📖
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-100 group-hover:text-amber-400 transition-colors mb-2">Academy Mode</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">
-                        Pelajari fondasi dasar logika matematika mulai dari proposisi, tabel kebenaran, hingga aturan inferensi.
-                    </p>
-                </div>
-                <div class="mt-6 flex items-center text-xs font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
-                    Buka Modul Materi <span class="ml-1">&rarr;</span>
-                </div>
-            </a>
-
-            <a href="investigasi-menu.html" class="group relative bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-6 text-left transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)] flex flex-col justify-between text-slate-950">
-                <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
+        <div class="container mx-auto max-w-6xl px-6 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center py-12">
+            <div class="md:col-span-7 space-y-6 max-w-xl">
                 
-                <div>
-                    <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-xl mb-4 text-white">
-                        🔍
-                    </div>
-                    <h3 class="text-xl font-extrabold text-white mb-2">Investigation Mode</h3>
-                    <p class="text-sm text-amber-950/80 font-medium leading-relaxed">
-                        Terapkan ilmumu! Analisis kesaksian saksi, temukan kontradiksi, dan tangkap pelaku utama dengan logika detektif.
-                    </p>
-                </div>
-                <div class="mt-6 flex items-center text-xs font-bold text-white uppercase tracking-wider">
-                    Mulai Investigasi Kasus <span class="ml-1">&rarr;</span>
-                </div>
-            </a>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+                    THINK LIKE A<br>DETECTIVE.<br>SOLVE WITH<br>
+                    <span class="text-amber-500 font-black drop-shadow-[0_0_20px_rgba(245,158,11,0.2)]">LOGIC.</span>
+                </h1>
 
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-normal">
+                    Game investigasi kriminal untuk belajar logika matematika secara interaktif dan menyenangkan.
+                </p>
+
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="investigasi-menu.html" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-lg text-sm transition-all shadow-[0_4px_20px_rgba(217,119,6,0.25)] text-center min-w-[160px]">
+                        Mulai Investigasi
+                    </a>
+                    <a href="materi.html" class="bg-amber-950/40 hover:bg-amber-900/60 text-amber-400 border border-amber-600/30 font-bold px-6 py-3 rounded-lg text-sm transition-all text-center min-w-[160px]">
+                        Buka Materi
+                    </a>
+                </div>
+
+            </div>
         </div>
 
-    </main>
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+            <svg class="relative block w-full h-[40px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V60c120,40,350,60,600,60s480-20,600-60V0Z" fill="#151515"></path>
+            </svg>
+        </div>
+    </header>
 
-    <footer class="border-t border-slate-900 bg-slate-950 py-6 text-center text-xs text-slate-500 font-mono">
+    <section class="bg-[#151515] py-20 w-full relative z-20">
+        <div class="container mx-auto max-w-6xl px-6 text-center">
+            <h2 class="text-3xl font-extrabold text-white">
+                Selamat Datang di LOG<span class="text-amber-500">IX</span> Academy
+            </h2>
+            <p class="text-slate-400 text-sm mt-3 max-w-xl mx-auto leading-relaxed">
+                Setiap hari kita menerima berbagai macam informasi di lapangan. Melalui platform ini, kamu akan dilatih menyaring fakta sejati menggunakan metode penalaran formal diskrit.
+            </p>
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-900 bg-[#121212] py-6 text-center text-xs text-slate-600 font-mono w-full relative z-20">
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
