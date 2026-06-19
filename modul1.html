@@ -3,130 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIX Academy — Modul 1</title>
+    <title>LOGIX — Modul 1: Proposisi</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .code-font { font-family: 'JetBrains Mono', monospace; }
     </style>
 </head>
-<body class="bg-[#1E1E1E] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500/30">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
 
-    <nav class="border-b border-slate-800 bg-[#151515] sticky top-0 z-50">
-        <div class="container mx-auto max-w-3xl px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <a href="materi.html" class="text-slate-400 hover:text-white transition-colors text-sm font-semibold">&larr; Keluar Modul</a>
-                <span class="text-slate-700">|</span>
-                <span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-1 rounded font-mono uppercase tracking-wider">Modul 01</span>
+    <nav class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-4xl px-6 h-16 flex items-center justify-between">
+            <a href="materi.html" class="text-slate-400 hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">
+                &larr; Kembali ke Daftar Modul
+            </a>
+            <div class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full font-mono">
+                Fase Dasar
             </div>
-            <div class="text-xs text-slate-400 font-mono" id="userDisplay">🕵️‍♂️ Agen: Loading...</div>
-        </div>
+        </nav>
     </nav>
 
-    <main class="container mx-auto max-w-3xl px-6 py-10 flex-grow space-y-8">
+    <main class="container mx-auto max-w-4xl px-6 py-10 flex-grow space-y-8">
         
-        <section class="space-y-4">
-            <span class="text-xs font-bold text-amber-500 uppercase tracking-widest code-font">// PENGANTAR LOGIKA MATEMATIKA</span>
-            <h1 class="text-3xl font-extrabold text-white">Pengenalan Proposisi</h1>
-            <p class="text-slate-300 text-sm md:text-base leading-relaxed">
-                Proposisi adalah suatu pernyataan yang mempunyai tepat satu nilai kebenaran, yaitu **Benar (True)** saja atau **Salah (False)** saja, tetapi tidak keduanya sekaligus. Di dalam matematika formal, sebuah proposisi biasanya dilambangkan menggunakan huruf kecil seperti $p, q, r, s$.
-            </p>
-            
-            <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl space-y-2 text-xs md:text-sm">
-                <p class="text-emerald-400 font-bold">🟢 Contoh Proposisi:</p>
-                <p class="text-slate-300 italic">"Surabaya adalah ibu kota provinsi Jawa Timur." <span class="text-emerald-500 font-mono text-xs">(Nilai kebenaran: BENAR)</span></p>
-                <p class="text-slate-300 italic mt-1">"Angka 5 lebih kecil dari angka 2." <span class="text-red-400 font-mono text-xs">(Nilai kebenaran: SALAH, tapi tetap disebut Proposisi karena nilainya pasti)</span></p>
-                
-                <p class="text-amber-400 font-bold pt-2">🔴 Contoh Bukan Proposisi:</p>
-                <p class="text-slate-300 italic">"Tolong matikan lampu ruang guru sebelum pulang!" <span class="text-slate-500 font-mono text-xs">(Kalimat perintah, tidak punya nilai kebenaran)</span></p>
-                <p class="text-slate-300 italic mt-1">"Apakah ruang guru sudah dikunci?" <span class="text-slate-500 font-mono text-xs">(Kalimat tanya, tidak bisa dinilai benar atau salah)</span></p>
+        <section class="border-b border-slate-800 pb-6">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest font-mono">Academy Mode // Modul 01</span>
+            <h1 class="text-4xl font-extrabold text-white mt-1 mb-2">Proposisi</h1>
+            <p class="text-lg text-slate-400 font-light">Mengenali Informasi yang Dapat Dijadikan Fakta</p>
+        </section>
+
+        <section class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm">
+            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">🎯 Tujuan Pembelajaran</h3>
+            <ul class="list-disc list-inside space-y-1.5 text-slate-300 text-sm">
+                <li>Memahami pengertian proposisi.</li>
+                <li>Membedakan proposisi dan bukan proposisi.</li>
+                <li>Menentukan nilai kebenaran suatu proposisi sederhana.</li>
+            </ul>
+        </section>
+
+        <section class="space-y-6 text-slate-300 leading-relaxed text-base">
+            <div>
+                <h3 class="text-xl font-bold text-white mb-2">Apa Itu Proposisi?</h3>
+                <p class="mb-3">
+                    Dalam kehidupan sehari-hari, kita sering menerima berbagai informasi, seperti berita, pernyataan, pertanyaan, maupun perintah. Namun, tidak semua informasi dapat digunakan sebagai dasar untuk menarik kesimpulan.
+                </p>
+                <blockquote class="border-l-4 border-amber-500 bg-amber-500/5 px-4 py-3 rounded-r-xl font-medium text-slate-200 my-4">
+                    Dalam logika matematika, <span class="text-amber-400 font-semibold">proposisi adalah kalimat yang memiliki nilai kebenaran yang jelas</span>, yaitu dapat dinyatakan <span class="text-emerald-400 font-bold">BENAR</span> atau <span class="text-red-400 font-bold">SALAH</span>.
+                </blockquote>
+                <p>
+                    Nilai kebenaran tersebut tidak harus selalu benar. Sebuah kalimat tetap disebut proposisi selama kita dapat menentukan dengan pasti apakah kalimat tersebut valid (benar) atau keliru (salah).
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                <div class="bg-emerald-950/10 border border-emerald-500/20 p-5 rounded-xl space-y-3">
+                    <h4 class="font-bold text-emerald-400 flex items-center gap-2 border-b border-emerald-500/20 pb-2 text-base">
+                        🕵️‍♂️ Contoh Proposisi (Bisa Jadi Fakta/Bukti)
+                    </h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded border border-slate-800">
+                            <span>"Jakarta adalah ibu kota Indonesia."</span> 
+                            <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-0.5 rounded font-bold border border-emerald-500/30">Benar</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded border border-slate-800">
+                            <span>"2 + 3 = 10"</span> 
+                            <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded font-bold border border-red-500/30">Salah</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded border border-slate-800">
+                            <span>"Semua bilangan genap habis dibagi 2."</span> 
+                            <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-0.5 rounded font-bold border border-emerald-500/30">Benar</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded border border-slate-800">
+                            <span>"Aceh berada di Pulau Jawa."</span> 
+                            <span class="bg-red-500/20 text-red-400 text-xs px-2 py-0.5 rounded font-bold border border-red-500/30">Salah</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-3">
+                    <h4 class="font-bold text-slate-400 flex items-center gap-2 border-b border-slate-800 pb-2 text-base">
+                        ❌ Contoh Bukan Proposisi (Abaikan Saat Analisis)
+                    </h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li class="flex justify-between items-center bg-slate-950/40 p-2.5 rounded border border-slate-900/50">
+                            <span>"Tutup pintunya!"</span> 
+                            <span class="text-slate-500 text-xs italic">Kalimat Perintah</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-slate-950/40 p-2.5 rounded border border-slate-900/50">
+                            <span>"Apakah kamu lapar?"</span> 
+                            <span class="text-slate-500 text-xs italic">Kalimat Tanya</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-slate-950/40 p-2.5 rounded border border-slate-900/50">
+                            <span>"Semoga hari ini menyenangkan."</span> 
+                            <span class="text-slate-500 text-xs italic">Kalimat Harapan</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-slate-950/40 p-2.5 rounded border border-slate-900/50 text-slate-400">
+                            <span>"x + 5 = 10"</span> 
+                            <span class="text-amber-500 text-xs font-semibold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Kalimat Terbuka</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl mt-6">
+                <h4 class="font-bold text-slate-200 mb-3 text-sm uppercase tracking-wider">📋 Ringkasan</h4>
+                <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-400">
+                    <li>Proposisi wajib punya status nilai kebenaran yang jelas (benar atau salah).</li>
+                    <li>Kalimat perintah, pertanyaan, harapan, dan kalimat terbuka bukan merupakan proposisi.</li>
+                    <li>Kemampuan mengenali proposisi merupakan langkah awal dalam berpikir logis dan menarik kesimpulan yang tepat.</li>
+                </ul>
             </div>
         </section>
 
-        <hr class="border-slate-800/60">
+        <section class="border-t border-slate-800 pt-8 space-y-6">
+            <h3 class="text-2xl font-bold text-white flex items-center gap-2">📝 Quiz Modul 1</h3>
+            
+            <div class="space-y-4">
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="benar">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 1: "Indonesia memiliki 38 provinsi." Apakah kalimat tersebut merupakan proposisi?</p>
+                    <div class="flex gap-4">
+                        <button onclick="checkAnswer(this, 'benar')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Benar</button>
+                        <button onclick="checkAnswer(this, 'salah')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Salah</button>
+                    </div>
+                </div>
 
-        <section class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-xl">
-            <div>
-                <span class="text-xs font-bold text-amber-500 uppercase tracking-widest code-font">⚡ GERBANG VERIFIKASI MODUL</span>
-                <h3 class="text-lg font-bold text-white mt-0.5">Selesaikan Kuis Modul 1</h3>
-                <p class="text-xs text-slate-400">Jawab pertanyaan di bawah ini dengan benar untuk membuka gembok tombol selanjutnya.</p>
-            </div>
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="salah">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 2: "Tolong matikan lampunya!" Apakah kalimat tersebut merupakan proposisi?</p>
+                    <div class="flex gap-4">
+                        <button onclick="checkAnswer(this, 'benar')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Benar</button>
+                        <button onclick="checkAnswer(this, 'salah')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Salah</button>
+                    </div>
+                </div>
 
-            <div class="space-y-3 pt-2">
-                <p class="text-sm font-semibold text-slate-200">Manakah dari kalimat berikut yang merupakan sebuah Proposisi?</p>
-                
-                <div class="flex flex-col gap-2.5 text-xs md:text-sm">
-                    <button onclick="checkQuizAnswer(false)" class="w-full text-left bg-[#1E1E1E] border border-slate-800 p-3 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer">
-                        A. Berapakah hasil dari 5 + 3?
-                    </button>
-                    <button onclick="checkQuizAnswer(true)" class="w-full text-left bg-[#1E1E1E] border border-slate-800 p-3 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer">
-                        B. Angka 8 adalah bilangan prima.
-                    </button>
-                    <button onclick="checkQuizAnswer(false)" class="w-full text-left bg-[#1E1E1E] border border-slate-800 p-3 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer">
-                        C. Wah, indah sekali pemandangan ini!
-                    </button>
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="salah">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 3: "x > 5" Apakah kalimat tersebut merupakan proposisi?</p>
+                    <div class="flex gap-4">
+                        <button onclick="checkAnswer(this, 'benar')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Benar</button>
+                        <button onclick="checkAnswer(this, 'salah')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Salah</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="benar">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 4: "Semua segitiga memiliki tiga sisi." Apakah kalimat tersebut merupakan proposisi?</p>
+                    <div class="flex gap-4">
+                        <button onclick="checkAnswer(this, 'benar')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Benar</button>
+                        <button onclick="checkAnswer(this, 'salah')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Salah</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-800 question-box" data-correct="salah">
+                    <p class="font-semibold text-slate-200 mb-3">Soal 5: "Apakah hari ini hujan?" Apakah kalimat tersebut merupakan proposisi?</p>
+                    <div class="flex gap-4">
+                        <button onclick="checkAnswer(this, 'benar')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Benar</button>
+                        <button onclick="checkAnswer(this, 'salah')" class="bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg text-sm transition-all border border-slate-700">○ Salah</button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <div class="border-t border-slate-800/60 pt-6 flex items-center justify-between">
-            <a href="materi.html" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-slate-300 uppercase tracking-wider transition-colors">
-                &larr; Menu Materi
-            </a>
-            
-            <button id="btnNextModul" onclick="goToNextModul()" disabled class="bg-slate-800 text-slate-500 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-not-allowed">
-                Modul Selanjutnya &rarr;
-            </button>
-        </div>
+        <section class="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-5 mt-6">
+            <div class="flex gap-3 items-start">
+                <span class="text-xl">🛡️</span>
+                <div>
+                    <h4 class="font-bold text-amber-400 text-sm uppercase tracking-wide mb-1">Kompetensi yang Diperoleh: Evidence Recognition</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Kemampuan untuk membedakan informasi yang dapat digunakan sebagai fakta atau bukti dari informasi yang tidak memiliki nilai kebenaran yang jelas.
+                    </p>
+                </div>
+            </div>
+        </section>
 
     </main>
 
-    <footer class="border-t border-slate-950 bg-[#121212] py-4 text-center text-xs text-slate-600 font-mono">
+    <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500 font-mono">
+        <div class="border-t border-slate-800/60 pt-6 flex items-center justify-between">
+            <a href="pengantar.html" class="border border-slate-700 hover:bg-slate-800 text-slate-300 font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all text-center">
+                &larr; Sebelum
+            </a>
+    
+            <button id="btnNextModul" onclick="goToNextModul()" disabled class="bg-slate-800 text-slate-500 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-not-allowed">
+                Selanjutnya &rarr;
+            </button>
+        </div>
+
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
     <script>
-        // Memuat Nama Agen yang Login dari Session Storage
-        const currentAgent = sessionStorage.getItem('logix_username') || "Guest";
-        document.getElementById('userDisplay').innerText = `🕵️‍♂️ Agen: ${currentAgent}`;
+                let jumlahTerjawab = 0;
+        function checkAnswer(button, userAnswer) {
+            const box = button.closest('.question-box');
+            const correctAnswer = box.getAttribute('data-correct');
+            const buttons = box.querySelectorAll('button');
+            
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            });
 
-        // Cek Memori: Jika Sebelumnya Sudah Pernah Lulus, Tombol Langsung Dibuka Otomatis
-        window.onload = function() {
-            if (localStorage.getItem('modul1_status') === 'completed') {
-                unlockNextButton();
-            }
-        }
-
-        // Fungsi Memeriksa Jawaban Kuis
-        function checkQuizAnswer(isCorrect) {
-            if (isCorrect) {
-                alert("🎯 BENAR! Kalimat 'Angka 8 adalah bilangan prima' adalah Proposisi karena berupa kalimat berita yang bisa ditentukan nilai kebenarannya (bernilai Salah). Akses ke Modul Selanjutnya Terbuka!");
-                
-                // Simpan status progres permanen ke browser
-                localStorage.setItem('modul1_status', 'completed');
-                
-                // Nyalakan tombol selanjutnya
-                unlockNextButton();
+            if (userAnswer === correctAnswer) {
+                button.classList.remove('bg-slate-800', 'border-slate-700', 'opacity-50');
+                button.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-400', 'opacity-100');
+                button.innerHTML = "✓ " + button.innerHTML.substring(2);
             } else {
-                alert("❌ Jawaban belum tepat, Agen. Ingat, kalimat tanya (A) atau kalimat seru/kagum (C) tidak mempunyai nilai kebenaran, jadi bukan proposisi. Coba analisis lagi!");
+                button.classList.remove('bg-slate-800', 'border-slate-700', 'opacity-50');
+                button.classList.add('bg-red-500/20', 'border-red-500', 'text-red-400', 'opacity-100');
+                button.innerHTML = "✗ " + button.innerHTML.substring(2);
+                
+                buttons.forEach(btn => {
+                    if(btn !== button && correctAnswer === (btn.innerHTML.includes('Benar') ? 'benar' : 'salah')) {
+                        btn.classList.remove('opacity-50');
+                        btn.classList.add('border-emerald-500/50', 'text-emerald-500/70');
+                    }
+                });
+            }
+
+            // HITUNG PROGRES JAWABAN USER
+            jumlahTerjawab++;
+            if(jumlahTerjawab === 5) {
+                localStorage.setItem('modul1_done', 'true');
+                alert("🎉 Selamat! Kamu telah menyelesaikan Modul 1. Modul 2 sekarang sudah terbuka di menu utama!");
             }
         }
-
-        // Fungsi Mengubah Tampilan Tombol Menjadi Aktif (Amber Mode)
-        function unlockNextButton() {
-            const btnNext = document.getElementById('btnNextModul');
-            btnNext.disabled = false;
-            btnNext.classList.remove('bg-slate-800', 'text-slate-500', 'cursor-not-allowed');
-            btnNext.classList.add('bg-amber-600', 'hover:bg-amber-700', 'text-white', 'cursor-pointer', 'shadow-[0_0_15px_rgba(245,158,11,0.2)]');
-        }
-
-        // Fungsi Navigasi Lompat Halaman
         function goToNextModul() {
             window.location.href = "modul2.html";
         }
+
+
     </script>
 </body>
 </html>
