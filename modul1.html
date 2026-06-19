@@ -189,8 +189,18 @@
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
-    <script>
-                let jumlahTerjawab = 0;
+        <script>
+        let jumlahTerjawab = 0;
+
+        // 1. CEK OTOMATIS SAAT HALAMAN DI-REFRESH
+        window.onload = function() {
+            if (localStorage.getItem('modul1_done') === 'true') {
+                unlockNextButton();
+                // Opsional: Set jumlahTerjawab jadi 5 agar tidak bug kalau user klik ulang tombol kuis yang sudah selesai
+                jumlahTerjawab = 5; 
+            }
+        }
+
         function checkAnswer(button, userAnswer) {
             const box = button.closest('.question-box');
             const correctAnswer = box.getAttribute('data-correct');
@@ -223,13 +233,26 @@
             if(jumlahTerjawab === 5) {
                 localStorage.setItem('modul1_done', 'true');
                 alert("🎉 Selamat! Kamu telah menyelesaikan Modul 1. Modul 2 sekarang sudah terbuka di menu utama!");
+                
+                // PANGGIL FUNGSI BUKA GEMBOK DI SINI
+                unlockNextButton();
             }
         }
+
+        // 2. FUNGSI UNTUK MERUBAH TOMBOL MENJADI AKTIF DAN MENYALA
+        function unlockNextButton() {
+            const btnNext = document.getElementById('btnNextModul');
+            if (btnNext) {
+                btnNext.disabled = false;
+                btnNext.classList.remove('bg-slate-800', 'text-slate-500', 'cursor-not-allowed');
+                btnNext.classList.add('bg-amber-600', 'hover:bg-amber-700', 'text-white', 'cursor-pointer', 'shadow-[0_0_15px_rgba(245,158,11,0.3)]');
+            }
+        }
+
         function goToNextModul() {
             window.location.href = "modul2.html";
         }
-
-
     </script>
+
 </body>
 </html>
