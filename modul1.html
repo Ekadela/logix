@@ -13,7 +13,7 @@
         .code-font { font-family: 'JetBrains Mono', monospace; }
     </style>
 </head>
-<body class="bg-[#1E1E1E] text-slate-100 min-h-screen flex flex-col justify-between">
+<body class="bg-[#1E1E1E] text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500/30">
 
     <nav class="border-b border-slate-800 bg-[#151515] sticky top-0 z-50">
         <div class="container mx-auto max-w-3xl px-6 h-16 flex items-center justify-between">
@@ -32,13 +32,17 @@
             <span class="text-xs font-bold text-amber-500 uppercase tracking-widest code-font">// PENGANTAR LOGIKA MATEMATIKA</span>
             <h1 class="text-3xl font-extrabold text-white">Pengenalan Proposisi</h1>
             <p class="text-slate-300 text-sm md:text-base leading-relaxed">
-                Proposisi adalah suatu pernyataan yang mempunyai satu nilai kebenaran, yaitu **Benar (True)** saja atau **Salah (False)** saja, tetapi tidak keduanya sekaligus. Di dalam matematika formal, proposisi biasanya dilambangkan dengan huruf kecil seperti $p, q, r$.
+                Proposisi adalah suatu pernyataan yang mempunyai tepat satu nilai kebenaran, yaitu **Benar (True)** saja atau **Salah (False)** saja, tetapi tidak keduanya sekaligus. Di dalam matematika formal, sebuah proposisi biasanya dilambangkan menggunakan huruf kecil seperti $p, q, r, s$.
             </p>
+            
             <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-xl space-y-2 text-xs md:text-sm">
-                <p class="text-amber-400 font-bold">🟢 Contoh Proposisi:</p>
-                <p class="text-slate-300 italic">"Surabaya adalah ibu kota provinsi Jawa Timur." (Nilai kebenaran: BENAR)</p>
-                <p class="text-amber-400 font-bold mt-2">🔴 Contoh Bukan Proposisi:</p>
-                <p class="text-slate-300 italic">"Tolong tutup pintu itu!" (Kalimat perintah, tidak punya nilai kebenaran)</p>
+                <p class="text-emerald-400 font-bold">🟢 Contoh Proposisi:</p>
+                <p class="text-slate-300 italic">"Surabaya adalah ibu kota provinsi Jawa Timur." <span class="text-emerald-500 font-mono text-xs">(Nilai kebenaran: BENAR)</span></p>
+                <p class="text-slate-300 italic mt-1">"Angka 5 lebih kecil dari angka 2." <span class="text-red-400 font-mono text-xs">(Nilai kebenaran: SALAH, tapi tetap disebut Proposisi karena nilainya pasti)</span></p>
+                
+                <p class="text-amber-400 font-bold pt-2">🔴 Contoh Bukan Proposisi:</p>
+                <p class="text-slate-300 italic">"Tolong matikan lampu ruang guru sebelum pulang!" <span class="text-slate-500 font-mono text-xs">(Kalimat perintah, tidak punya nilai kebenaran)</span></p>
+                <p class="text-slate-300 italic mt-1">"Apakah ruang guru sudah dikunci?" <span class="text-slate-500 font-mono text-xs">(Kalimat tanya, tidak bisa dinilai benar atau salah)</span></p>
             </div>
         </section>
 
@@ -46,7 +50,7 @@
 
         <section class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 space-y-4 shadow-xl">
             <div>
-                <span class="text-xs font-bold text-red-400 uppercase tracking-widest code-font">⚡ GERBANG VERIFIKASI MODUL</span>
+                <span class="text-xs font-bold text-amber-500 uppercase tracking-widest code-font">⚡ GERBANG VERIFIKASI MODUL</span>
                 <h3 class="text-lg font-bold text-white mt-0.5">Selesaikan Kuis Modul 1</h3>
                 <p class="text-xs text-slate-400">Jawab pertanyaan di bawah ini dengan benar untuk membuka gembok tombol selanjutnya.</p>
             </div>
@@ -55,13 +59,13 @@
                 <p class="text-sm font-semibold text-slate-200">Manakah dari kalimat berikut yang merupakan sebuah Proposisi?</p>
                 
                 <div class="flex flex-col gap-2.5 text-xs md:text-sm">
-                    <button onclick="checkQuizAnswer(false)" class="quiz-opt w-full text-left bg-[#1E1E1E] border border-slate-800 p-3 rounded-xl hover:bg-slate-800 transition-colors">
-                        A. Berapakah hasil dari $5 + 3$?
+                    <button onclick="checkQuizAnswer(false)" class="w-full text-left bg-[#1E1E1E] border border-slate-800 p-3 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer">
+                        A. Berapakah hasil dari 5 + 3?
                     </button>
-                    <button onclick="checkQuizAnswer(true)" class="quiz-opt w-full text-left bg-[#1E1E1E] border border-slate-800 p-3 rounded-xl hover:bg-slate-800 transition-colors">
+                    <button onclick="checkQuizAnswer(true)" class="w-full text-left bg-[#1E1E1E] border border-slate-800 p-3 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer">
                         B. Angka 8 adalah bilangan prima.
                     </button>
-                    <button onclick="checkQuizAnswer(false)" class="quiz-opt w-full text-left bg-[#1E1E1E] border border-slate-800 p-3 rounded-xl hover:bg-slate-800 transition-colors">
+                    <button onclick="checkQuizAnswer(false)" class="w-full text-left bg-[#1E1E1E] border border-slate-800 p-3 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer">
                         C. Wah, indah sekali pemandangan ini!
                     </button>
                 </div>
@@ -85,42 +89,42 @@
     </footer>
 
     <script>
-        // Ambil nama agen dari sessionStorage yang di-input di awal tadi
+        // Memuat Nama Agen yang Login dari Session Storage
         const currentAgent = sessionStorage.getItem('logix_username') || "Guest";
         document.getElementById('userDisplay').innerText = `🕵️‍♂️ Agen: ${currentAgent}`;
 
-        // Cek apakah modul ini sebelumnya sudah pernah diselesaikan
+        // Cek Memori: Jika Sebelumnya Sudah Pernah Lulus, Tombol Langsung Dibuka Otomatis
         window.onload = function() {
             if (localStorage.getItem('modul1_status') === 'completed') {
                 unlockNextButton();
             }
         }
 
+        // Fungsi Memeriksa Jawaban Kuis
         function checkQuizAnswer(isCorrect) {
             if (isCorrect) {
-                alert("🎯 LUAR BIASA! Jawaban kamu benar. Pernyataan B adalah proposisi (bernilai salah). Status Modul 1 Selesai!");
+                alert("🎯 BENAR! Kalimat 'Angka 8 adalah bilangan prima' adalah Proposisi karena berupa kalimat berita yang bisa ditentukan nilai kebenarannya (bernilai Salah). Akses ke Modul Selanjutnya Terbuka!");
                 
-                // Simpan status kelulusan modul ke localStorage perangkat
+                // Simpan status progres permanen ke browser
                 localStorage.setItem('modul1_status', 'completed');
                 
-                // Jalankan fungsi buka gembok tombol selanjutnya
+                // Nyalakan tombol selanjutnya
                 unlockNextButton();
             } else {
-                alert("❌ Jawabanmu masih salah, Agen. Ingat, proposisi harus berupa kalimat berita yang bisa ditentukan benar/salahnya. Coba lagi!");
+                alert("❌ Jawaban belum tepat, Agen. Ingat, kalimat tanya (A) atau kalimat seru/kagum (C) tidak mempunyai nilai kebenaran, jadi bukan proposisi. Coba analisis lagi!");
             }
         }
 
+        // Fungsi Mengubah Tampilan Tombol Menjadi Aktif (Amber Mode)
         function unlockNextButton() {
             const btnNext = document.getElementById('btnNextModul');
-            
-            // Ubah style tombol selanjutnya agar menyala (warna amber khas figma) dan aktif
             btnNext.disabled = false;
             btnNext.classList.remove('bg-slate-800', 'text-slate-500', 'cursor-not-allowed');
             btnNext.classList.add('bg-amber-600', 'hover:bg-amber-700', 'text-white', 'cursor-pointer', 'shadow-[0_0_15px_rgba(245,158,11,0.2)]');
         }
 
+        // Fungsi Navigasi Lompat Halaman
         function goToNextModul() {
-            // Pindah langsung ke file modul kedua
             window.location.href = "modul2.html";
         }
     </script>
