@@ -22,8 +22,8 @@
             </div>
             
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                <a href="investigasi-menu.html" class="hover:text-white transition-colors">Cases</a>
-                <a href="materi.html" class="hover:text-white transition-colors">Library</a>
+                <button onclick="proteksiHalaman('investigasi-menu.html')" class="hover:text-white transition-colors cursor-pointer">Cases</button>
+                <button onclick="proteksiHalaman('materi.html')" class="hover:text-white transition-colors cursor-pointer">Library</button>
                 <a href="#" class="hover:text-white transition-colors">About</a>
             </div>
 
@@ -52,13 +52,14 @@
                     Game investigasi kriminal untuk belajar logika matematika secara interaktif dan menyenangkan.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-2">
-                    <a href="investigasi-menu.html" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-lg text-sm transition-all shadow-[0_4px_20px_rgba(217,119,6,0.25)] text-center min-w-[160px]">
-                        Mulai Investigasi
-                    </a>
-                    <a href="materi.html" class="bg-amber-950/40 hover:bg-amber-900/60 text-amber-400 border border-amber-600/30 font-bold px-6 py-3 rounded-lg text-sm transition-all text-center min-w-[160px]">
-                        Buka Materi
-                    </a>
+                    <button onclick="proteksiHalaman('investigasi-menu.html')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-lg text-sm transition-all shadow-[0_4px_20px_rgba(217,119,6,0.25)] text-center min-w-[160px] cursor-pointer">
+                    Mulai Investigasi
+                    </button>
+                    <button onclick="proteksiHalaman('materi.html')" class="bg-amber-950/40 hover:bg-amber-900/60 text-amber-400 border border-amber-600/30 font-bold px-6 py-3 rounded-lg text-sm transition-all text-center min-w-[160px] cursor-pointer">
+                    Buka Materi
+                    </button>
                 </div>
+
             </div>
         </div>
 
@@ -96,7 +97,7 @@
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
-    <script>
+        <script>
         function openLoginModal() {
             document.getElementById('loginModal').classList.remove('hidden');
         }
@@ -109,14 +110,14 @@
             const name = document.getElementById('usernameInput').value.trim();
             if (name) {
                 localStorage.setItem('logix_username', name);
-                // Set default progres jika belum pernah main
+                // Set default progres jika baru pertama kali masuk
                 if (!localStorage.getItem('logix_progress_case1')) {
                     localStorage.setItem('logix_progress_case1', 'unlocked');
                 }
                 checkUserStatus();
                 closeLoginModal();
             } else {
-                alert("Nama tidak boleh kosong!");
+                alert("Nama agen tidak boleh kosong!");
             }
         }
 
@@ -126,17 +127,31 @@
             const welcomeText = document.getElementById('welcomeText');
 
             if (savedUser) {
-                // Ubah tombol Login menjadi nama user + icon detektif
+                // Ubah tombol Login menjadi nama user jika sudah login
                 btnNav.innerText = `🕵️‍♂️ ${savedUser}`;
                 btnNav.classList.remove('text-amber-400', 'border-amber-500/70');
                 btnNav.classList.add('text-emerald-400', 'border-emerald-500/50');
-                // Ubah sapaan teks selamat datang
                 welcomeText.innerHTML = `Halo <strong class="text-amber-500">${savedUser}</strong>, selamat datang di LOGIX Academy! Siapkan analisis tajammu untuk memecahkan misteri kasus diskrit hari ini.`;
             }
         }
 
-        // Jalankan pengecekan setiap halaman di-load
+        // FUNGSI PROTEKSI: Cek login sebelum pindah halaman
+        function proteksiHalaman(targetUrl) {
+            const savedUser = localStorage.getItem('logix_username');
+            
+            if (!savedUser) {
+                // Jika belum login, cegah masuk, kasih peringatan, dan buka pop-up login
+                alert("🔒 Akses Ditolak! Harap lakukan inisialisasi Agen Detektif (Login) terlebih dahulu untuk mencatat progres kamu.");
+                openLoginModal();
+            } else {
+                // Jika sudah login, langsung lolos ke halaman tujuan
+                window.location.href = targetUrl;
+            }
+        }
+
+        // Jalankan pengecekan status saat halaman dimuat
         window.onload = checkUserStatus;
     </script>
+
 </body>
 </html>
