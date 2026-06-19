@@ -17,7 +17,7 @@
 
     <nav class="w-full absolute top-0 left-0 z-50 bg-transparent">
         <div class="container mx-auto max-w-6xl px-6 h-20 flex items-center justify-between">
-            <div class="text-2xl font-black tracking-wider text-white flex items-center">
+            <div class="text-2xl font-black tracking-wider text-white">
                 LOG<span class="text-amber-500">IX</span>
             </div>
             
@@ -28,35 +28,29 @@
             </div>
 
             <div>
-                <a href="#" class="border border-amber-500/70 text-amber-400 hover:bg-amber-500 hover:text-slate-950 px-5 py-1.5 rounded text-xs font-bold uppercase tracking-wider transition-all">
+                <button id="btnLoginNav" onclick="openLoginModal()" class="border border-amber-500/70 text-amber-400 hover:bg-amber-500 hover:text-slate-950 px-5 py-1.5 rounded text-xs font-bold uppercase tracking-wider transition-all cursor-pointer">
                     Login
-                </a>
+                </button>
             </div>
         </div>
     </nav>
 
     <header class="relative w-full min-h-screen flex items-center overflow-hidden pt-20">
-        
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200" 
-                 alt="Detective Desk background" 
-                 class="w-full h-full object-cover object-right md:object-center opacity-30 pointer-events-none">
+            <img src="d1.jpg" alt="Background" class="w-full h-full object-cover object-right md:object-center opacity-30 pointer-events-none">
             <div class="absolute inset-0 bg-gradient-to-r from-[#1E1E1E] via-[#1E1E1E]/90 to-transparent"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-[#1E1E1E] via-transparent to-transparent"></div>
         </div>
 
         <div class="container mx-auto max-w-6xl px-6 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center py-12">
             <div class="md:col-span-7 space-y-6 max-w-xl">
-                
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
                     THINK LIKE A<br>DETECTIVE.<br>SOLVE WITH<br>
                     <span class="text-amber-500 font-black drop-shadow-[0_0_20px_rgba(245,158,11,0.2)]">LOGIC.</span>
                 </h1>
-
-                <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-normal">
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
                     Game investigasi kriminal untuk belajar logika matematika secara interaktif dan menyenangkan.
                 </p>
-
                 <div class="flex flex-wrap gap-4 pt-2">
                     <a href="investigasi-menu.html" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-lg text-sm transition-all shadow-[0_4px_20px_rgba(217,119,6,0.25)] text-center min-w-[160px]">
                         Mulai Investigasi
@@ -65,12 +59,11 @@
                         Buka Materi
                     </a>
                 </div>
-
             </div>
         </div>
 
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-            <svg class="relative block w-full h-[40px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <svg class="relative block w-full h-[40px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path d="M0,0V60c120,40,350,60,600,60s480-20,600-60V0Z" fill="#151515"></path>
             </svg>
         </div>
@@ -78,18 +71,72 @@
 
     <section class="bg-[#151515] py-20 w-full relative z-20">
         <div class="container mx-auto max-w-6xl px-6 text-center">
-            <h2 class="text-3xl font-extrabold text-white">
-                Selamat Datang di LOG<span class="text-amber-500">IX</span> Academy
-            </h2>
-            <p class="text-slate-400 text-sm mt-3 max-w-xl mx-auto leading-relaxed">
+            <h2 class="text-3xl font-extrabold text-white">Selamat Datang di LOG<span class="text-amber-500">IX</span> Academy</h2>
+            <p id="welcomeText" class="text-slate-400 text-sm mt-3 max-w-xl mx-auto leading-relaxed">
                 Setiap hari kita menerima berbagai macam informasi di lapangan. Melalui platform ini, kamu akan dilatih menyaring fakta sejati menggunakan metode penalaran formal diskrit.
             </p>
         </div>
     </section>
 
+    <div id="loginModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#1E1E1E] border border-slate-800 p-6 rounded-2xl max-w-sm w-full space-y-4">
+            <div>
+                <h3 class="text-lg font-bold text-white">Inisialisasi Agen Detektif</h3>
+                <p class="text-xs text-slate-400">Masukkan nama kamu untuk menyimpan berkas progres investigasi.</p>
+            </div>
+            <input type="text" id="usernameInput" placeholder="Contoh: Eka Dela" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+            <div class="flex gap-3 pt-2 text-xs font-bold uppercase tracking-wider">
+                <button onclick="closeLoginModal()" class="w-1/2 border border-slate-800 text-slate-400 p-2.5 rounded-xl hover:bg-slate-900">Batal</button>
+                <button onclick="saveLogin()" class="w-1/2 bg-amber-600 text-white p-2.5 rounded-xl hover:bg-amber-700">Simpan Akun</button>
+            </div>
+        </div>
+    </div>
+
     <footer class="border-t border-slate-900 bg-[#121212] py-6 text-center text-xs text-slate-600 font-mono w-full relative z-20">
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
+    <script>
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
+        function saveLogin() {
+            const name = document.getElementById('usernameInput').value.trim();
+            if (name) {
+                localStorage.setItem('logix_username', name);
+                // Set default progres jika belum pernah main
+                if (!localStorage.getItem('logix_progress_case1')) {
+                    localStorage.setItem('logix_progress_case1', 'unlocked');
+                }
+                checkUserStatus();
+                closeLoginModal();
+            } else {
+                alert("Nama tidak boleh kosong!");
+            }
+        }
+
+        function checkUserStatus() {
+            const savedUser = localStorage.getItem('logix_username');
+            const btnNav = document.getElementById('btnLoginNav');
+            const welcomeText = document.getElementById('welcomeText');
+
+            if (savedUser) {
+                // Ubah tombol Login menjadi nama user + icon detektif
+                btnNav.innerText = `🕵️‍♂️ ${savedUser}`;
+                btnNav.classList.remove('text-amber-400', 'border-amber-500/70');
+                btnNav.classList.add('text-emerald-400', 'border-emerald-500/50');
+                // Ubah sapaan teks selamat datang
+                welcomeText.innerHTML = `Halo <strong class="text-amber-500">${savedUser}</strong>, selamat datang di LOGIX Academy! Siapkan analisis tajammu untuk memecahkan misteri kasus diskrit hari ini.`;
+            }
+        }
+
+        // Jalankan pengecekan setiap halaman di-load
+        window.onload = checkUserStatus;
+    </script>
 </body>
 </html>
