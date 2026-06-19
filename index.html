@@ -97,7 +97,7 @@
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
-        <script>
+            <script>
         function openLoginModal() {
             document.getElementById('loginModal').classList.remove('hidden');
         }
@@ -109,11 +109,14 @@
         function saveLogin() {
             const name = document.getElementById('usernameInput').value.trim();
             if (name) {
-                localStorage.setItem('logix_username', name);
-                // Set default progres jika baru pertama kali masuk
+                // 1. Status Login disimpan di Session (Hilang saat tab ditutup)
+                sessionStorage.setItem('logix_username', name);
+                
+                // 2. Progres Kasus disimpan di Local (Tetap AMAN & awet di browser)
                 if (!localStorage.getItem('logix_progress_case1')) {
                     localStorage.setItem('logix_progress_case1', 'unlocked');
                 }
+                
                 checkUserStatus();
                 closeLoginModal();
             } else {
@@ -122,34 +125,34 @@
         }
 
         function checkUserStatus() {
-            const savedUser = localStorage.getItem('logix_username');
+            const savedUser = sessionStorage.getItem('logix_username');
             const btnNav = document.getElementById('btnLoginNav');
             const welcomeText = document.getElementById('welcomeText');
 
             if (savedUser) {
-                // Ubah tombol Login menjadi nama user jika sudah login
                 btnNav.innerText = `🕵️‍♂️ ${savedUser}`;
                 btnNav.classList.remove('text-amber-400', 'border-amber-500/70');
                 btnNav.classList.add('text-emerald-400', 'border-emerald-500/50');
                 welcomeText.innerHTML = `Halo <strong class="text-amber-500">${savedUser}</strong>, selamat datang di LOGIX Academy! Siapkan analisis tajammu untuk memecahkan misteri kasus diskrit hari ini.`;
+            } else {
+                btnNav.innerText = 'Login';
+                btnNav.classList.remove('text-emerald-400', 'border-emerald-500/50');
+                btnNav.classList.add('text-amber-400', 'border-amber-500/70');
+                welcomeText.innerHTML = `Setiap hari kita menerima berbagai macam informasi di lapangan. Melalui platform ini, kamu akan dilatih menyaring fakta sejati menggunakan metode penalaran formal diskrit.`;
             }
         }
 
-        // FUNGSI PROTEKSI: Cek login sebelum pindah halaman
         function proteksiHalaman(targetUrl) {
-            const savedUser = localStorage.getItem('logix_username');
+            const savedUser = sessionStorage.getItem('logix_username');
             
             if (!savedUser) {
-                // Jika belum login, cegah masuk, kasih peringatan, dan buka pop-up login
-                alert("🔒 Akses Ditolak! Harap lakukan inisialisasi Agen Detektif (Login) terlebih dahulu untuk mencatat progres kamu.");
+                alert("🔒 Akses Ditolak! Harap lakukan inisialisasi Agen Detektif (Login) terlebih dahulu untuk memuat progres kamu.");
                 openLoginModal();
             } else {
-                // Jika sudah login, langsung lolos ke halaman tujuan
                 window.location.href = targetUrl;
             }
         }
 
-        // Jalankan pengecekan status saat halaman dimuat
         window.onload = checkUserStatus;
     </script>
 
