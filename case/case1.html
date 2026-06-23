@@ -3,41 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIX — Case 1: The Missing Answer Key</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Logix - Investigasi Kasus 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .code-font { font-family: 'JetBrains Mono', monospace; }
+        .heading-font { font-family: 'Space Grotesk', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500/30">
+<body class="bg-[#030712] text-slate-100 min-h-screen flex flex-col selection:bg-amber-500/30 selection:text-amber-200">
 
-    <nav class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
-        <div class="container mx-auto max-w-4xl px-6 h-16 flex items-center justify-between">
-            <a href="../investigasi-menu.html" class="text-slate-400 hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">
-                &larr; Kembali ke Menu Investigasi
-            </a>
-            <div class="text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1 rounded-full code-font tracking-wider">
-                KASUS 01 // INVESTIGASI AKTIF
-            </div>
+    <header class="border-b border-slate-800 bg-[#030712]/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <span class="text-xs bg-amber-500/10 border border-amber-500/20 text-amber-500 px-2.5 py-1 rounded-md font-mono uppercase tracking-wider">Modul 1</span>
+            <h1 class="text-sm font-semibold tracking-tight heading-font">Kasus 1: Alibi Digital di Ruang Siber</h1>
         </div>
-    </nav>
+        <a href="../investigasi-menu.html" class="text-xs font-medium text-slate-400 hover:text-white transition-colors bg-slate-900 border border-slate-800 px-3 py-2 rounded-lg flex items-center gap-1.5">
+            &larr; Kembali ke Menu Investigasi
+        </a>
+    </header>
 
-    <main class="container mx-auto max-w-3xl px-6 py-10 flex-grow flex flex-col justify-center">
+    <main class="flex-1 max-w-4xl w-full mx-auto p-6 md:p-8 flex flex-col justify-between">
         
-        <div class="bg-slate-900/50 border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl backdrop-blur-sm min-h-[450px] flex flex-col justify-between">
-            
-            <div id="gameContent" class="space-y-6">
+        <div class="bg-slate-950/40 border border-slate-900 rounded-2xl p-6 md:p-8 backdrop-blur-sm min-h-[450px] flex flex-col justify-between shadow-2xl shadow-black/50">
+            <div id="screenContent" class="space-y-6">
                 </div>
 
-            <div class="border-t border-slate-800/60 pt-6 mt-6">
-                <div id="feedbackBox" class="hidden mb-4 p-4 rounded-xl text-sm leading-relaxed transition-all duration-300"></div>
-                
+            <div class="mt-8 pt-6 border-t border-slate-900 space-y-4">
+                <div id="feedbackBox" class="hidden p-4 rounded-xl text-sm border transition-all duration-300 font-medium"></div>
+
                 <div class="flex justify-between items-center w-full">
-                    <button id="btnBack" onclick="handleBack()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition-all disabled:opacity-0 disabled:cursor-not-allowed cursor-pointer">
+                    <button id="btnBack" onclick="handleBack()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition-all disabled:opacity-0 disabled:pointer-events-none cursor-pointer invisible">
                         &larr; Kembali
                     </button>
                     
@@ -48,641 +44,507 @@
                     </button>
                 </div>
             </div>
-
         </div>
-
     </main>
-
-    <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500 font-mono">
-        <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
-    </footer>
 
     <script>
         // Session Handling
         const currentUser = sessionStorage.getItem('logix_username') || 'guest';
         let currentScreen = 1;
-        let selectedAnswers = []; // Untuk tipe Checkbox (Multi-select)
-        let singleAnswer = null;  // Untuk tipe Radio button (Single-select)
 
-        // Game State Data
-        const suspects = {
-            anne: { name: "Anne", job: "Ketua kelas yang sering mengunjungi perpustakaan.", alibi: "Saya berada di perpustakaan.", proof: "✓ CCTV Perpustakaan<br><span class='text-slate-400 text-xs'>Pukul 09.22 Anne terlihat memasuki perpustakaan.</span>", status: "Didukung bukti.", note: "Keberadaan Anne saat kejadian memiliki dukungan bukti yang jelas." },
-            zea: { name: "Zea", job: "Pengurus kantin sekolah.", alibi: "Saya berada di kantin.", proof: "✓ CCTV Kantin<br><span class='text-slate-400 text-xs'>Pukul 09.20 Zea terlihat membeli minuman di kantin.</span>", status: "Didukung bukti.", note: "Kesaksian Zea sesuai dengan rekaman CCTV." },
-            adel: { name: "Adel", job: "Asisten laboratorium.", alibi: "Saya berada di laboratorium dan mengerjakan tugas kelompok.", proof: "✓ CCTV Laboratorium<br><span class='text-slate-400 text-xs'>Pukul 09.25 Adel terlihat berada di laboratorium.</span>", status: "Sebagian didukung bukti.", note: "Keberadaan Adel di laboratorium terbukti, namun belum ada bukti yang mengonfirmasi bahwa ia sedang mengerjakan tugas kelompok." },
-            james: { name: "James", job: "Anggota klub robotika.", alibi: "Saya berada di ruang klub atau lapangan basket.", proof: "✓ Sistem Akses Ruang Klub<br><span class='text-slate-400 text-xs'>Pukul 09.15 James menggunakan kartu akses ruang klub.</span>", status: "Masih mungkin benar.", note: "Karena menggunakan kata 'atau', cukup salah satu lokasi terbukti untuk membuat pernyataan James tetap mungkin benar." },
-            celyn: { name: "Celyn", job: "Anggota klub matematika.", alibi: "Saya berada di taman sekolah.", proof: "✓ Informasi Petugas Kebersihan<br><span class='text-slate-400 text-xs'>Tidak ada siswa yang terlihat berada di taman sekolah antara pukul 09.15–09.30.</span><br><br>✓ CCTV Ruang Guru<br><span class='text-slate-400 text-xs'>Pelaku terlihat mengenakan jaket klub matematika.</span><br><br>✓ Data Siswa<br><span class='text-slate-400 text-xs'>Celyn merupakan anggota klub matematika.</span>", status: "Perlu diperiksa lebih lanjut.", note: "Belum ditemukan bukti yang mendukung keberadaan Celyn di taman sekolah. Selain itu, terdapat beberapa petunjuk yang mengarah pada dirinya." }
+        // Penyimpanan jawaban per screen agar tidak hilang saat tombol 'Kembali' ditekan
+        let answersState = {
+            2: [], 3: [], 4: null, 5: null, 6: null, 7: [], 8: null, 9: null, 10: null, 12: null
         };
 
-        const proofs = {
-            cctv_koridor: { title: "CCTV Koridor", desc: "Pukul 09.18 terlihat seseorang berjalan menuju arah ruang guru.<br>Identitas tidak dapat dikenali karena kualitas rekaman kurang baik." },
-            cctv_kantin: { title: "CCTV Kantin", desc: "Pukul 09.20 Zea terlihat membeli minuman di kantin." },
-            cctv_perpustakaan: { title: "CCTV Perpustakaan", desc: "Pukul 09.22 Anne terlihat memasuki perpustakaan." },
-            cctv_laboratorium: { title: "CCTV Laboratorium", desc: "Pukul 09.25 Adel terlihat berada di laboratorium." },
-            akses_klub: { title: "Sistem Akses Ruang Klub", desc: "Pukul 09.15 James menggunakan kartu akses ruang klub." },
-            petugas_bersih: { title: "Keterangan Petugas Kebersihan", desc: "Petugas kebersihan menyatakan tidak melihat siapa pun berada di taman sekolah antara pukul 09.15–09.30." },
-            cctv_rguru: { title: "CCTV Ruang Guru", desc: "Pelaku memasuki ruang guru pukul 09.23.<br>Pelaku membuka lemari penyimpanan dokumen.<br>Pelaku mengambil map berisi kunci jawaban.<br>Pelaku mengenakan jaket klub matematika." }
+        // Penyimpanan status feedback per screen (null = belum dijawab)
+        let feedbackState = {
+            2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null, 9: null, 10: null, 12: null
         };
 
-        // Render Controller
         function renderScreen() {
-            const content = document.getElementById('gameContent');
+            const content = document.getElementById('screenContent');
             const indicator = document.getElementById('screenIndicator');
             const btn = document.getElementById('btnAction');
-            const btnBack = document.getElementById('btnBack');
-            const feedbackBox = document.getElementById('feedbackBox');
             
-            feedbackBox.classList.add('hidden'); 
             indicator.innerText = `SCREEN ${currentScreen} / 13`;
-            selectedAnswers = [];
-            singleAnswer = null;
 
-            // Manajemen Visibilitas Tombol Kembali Ke Screen Sebelumnya
+            // Atur visibilitas tombol kembali
             if (currentScreen === 1 || currentScreen === 11 || currentScreen === 13) {
-                btnBack.disabled = true;
-                btnBack.style.opacity = '0';
+                document.getElementById('btnBack').classList.add('invisible');
             } else {
-                btnBack.disabled = false;
-                btnBack.style.opacity = '1';
+                document.getElementById('btnBack').classList.remove('invisible');
             }
 
+            // Pulihkan feedbackState dan tipe tombol jika halaman ini sudah pernah dijawab
+            const feedbackBox = document.getElementById('feedbackBox');
+            const savedFeedback = feedbackState[currentScreen];
+            if (savedFeedback) {
+                feedbackBox.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/20', 'text-emerald-400', 'bg-red-500/10', 'border-red-500/20', 'text-red-400');
+                if (savedFeedback.isSuccess) {
+                    feedbackBox.classList.add('bg-emerald-500/10', 'border', 'border-emerald-500/20', 'text-emerald-400');
+                    feedbackBox.innerHTML = `<strong>✅ BERHASIL:</strong> ${savedFeedback.text}`;
+                    btn.innerText = "Lanjutkan &rarr;";
+                    btn.setAttribute('onclick', 'forceNext()');
+                } else {
+                    feedbackBox.classList.add('bg-red-500/10', 'border', 'border-red-500/20', 'text-red-400');
+                    feedbackBox.innerHTML = `<strong>❌ ANALISIS KURANG TEPAT:</strong> ${savedFeedback.text}`;
+                    btn.innerText = "Verifikasi Analisis";
+                    btn.setAttribute('onclick', 'handleAction()');
+                }
+            } else {
+                feedbackBox.classList.add('hidden');
+                btn.innerText = (currentScreen === 1) ? "Mulai Investigasi" : "Verifikasi Analisis";
+                btn.setAttribute('onclick', 'handleAction()');
+            }
+
+            // Render Core UI Per Screen
             switch(currentScreen) {
                 case 1:
-                    btn.innerText = "Mulai Investigasi";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="flex items-center gap-2 text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// OPENING STORY</div>
-                            <h2 class="text-2xl font-black text-white">The Missing Answer Key</h2>
-                            <p class="text-slate-300 text-sm md:text-base leading-relaxed">Pagi hari setelah ujian matematika selesai dicetak, pihak sekolah menyadari bahwa map berisi kunci jawaban ujian hilang dari lemari penyimpanan ruang guru.</p>
-                            <div class="bg-slate-950/40 border border-slate-800 p-4 rounded-xl code-font text-xs text-slate-400 space-y-1">
-                                <p>⏱️ KEJADIAN: Pukul 09.15 – 09.30 (Jam Istirahat)</p>
-                                <p>📍 LOKASI: Area Gedung Akademik / Ruang Guru</p>
-                            </div>
-                            <p class="text-slate-300 text-sm md:text-base">Berdasarkan data kehadiran dan lokasi siswa, terdapat lima siswa yang berada di area gedung akademik saat kejadian berlangsung.</p>
-                            <p class="text-amber-400 text-sm font-semibold">Tugasmu adalah menganalisis informasi yang tersedia dan menentukan siapa yang paling mungkin mengambil kunci jawaban tersebut.</p>
+                            <h2 class="text-xl font-bold heading-font text-amber-500">🏢 Kasus: Kebocoran Data Log Elektronik Server Pusat</h2>
+                            <p class="text-sm text-slate-400 leading-relaxed text-justify">
+                                Detektif Logix, sebuah insiden siber serius melanda server basis data utama. Data log akses elektronik selama periode kritis telah dimanipulasi. Tim IT forensik berhasil mengisolasi server dan mengunci daftar orang yang berada di dalam gedung atau terhubung ke jaringan lokal pada rentang waktu kejadian.
+                            </p>
+                            <p class="text-sm text-slate-400 leading-relaxed text-justify">
+                                Berdasarkan data awal, terdapat lima orang terduga yang berada di sekitar area fasilitas siber: <strong class="text-slate-200">Anne, Zea, Adel, James, dan Celyn</strong>. Tugas Anda adalah melakukan analisis logika ketat berdasarkan premis-premis digital yang valid untuk mengeliminasi alibi palsu dan mengunci pelaku utamanya.
+                            </p>
                         </div>
                     `;
                     break;
 
                 case 2:
-                    btn.innerText = "Verifikasi Proposisi";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 02: DAFTAR KESAKSIAN</div>
-                            <h2 class="text-xl font-bold text-white">Daftar Orang yang Diperiksa</h2>
-                            <div class="space-y-2.5 text-xs md:text-sm">
-                                <div class="bg-slate-950/30 p-3 rounded-xl border border-slate-800/60"><strong class="text-amber-400">Anne:</strong> ${suspects.anne.job}<br><span class="italic text-slate-300">"Pernyataan: ${suspects.anne.alibi}"</span></div>
-                                <div class="bg-slate-950/30 p-3 rounded-xl border border-slate-800/60"><strong class="text-amber-400">Zea:</strong> ${suspects.zea.job}<br><span class="italic text-slate-300">"Pernyataan: ${suspects.zea.alibi}"</span></div>
-                                <div class="bg-slate-950/30 p-3 rounded-xl border border-slate-800/60"><strong class="text-amber-400">Adel:</strong> ${suspects.adel.job}<br><span class="italic text-slate-300">"Pernyataan: ${suspects.adel.alibi}"</span></div>
-                                <div class="bg-slate-950/30 p-3 rounded-xl border border-slate-800/60"><strong class="text-amber-400">James:</strong> ${suspects.james.job}<br><span class="italic text-slate-300">"Pernyataan: ${suspects.james.alibi}"</span></div>
-                                <div class="bg-slate-950/30 p-3 rounded-xl border border-slate-800/60"><strong class="text-amber-400">Celyn:</strong> ${suspects.celyn.job}<br><span class="italic text-slate-300">"Pernyataan: ${suspects.celyn.alibi}"</span></div>
-                            </div>
-                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80 mt-4">
-                                <p class="text-sm font-bold text-white mb-3">❓ Pilih semua kesaksian yang merupakan Proposisi:</p>
-                                <div class="flex flex-wrap gap-3 font-mono text-xs">
-                                    ${['Anne','Zea','Adel','James','Celyn'].map(name => `
+                            <h3 class="text-base font-semibold text-slate-300">🕵️ Kasus 1 - Langkah 1: Mendaftar Semua Terduga</h3>
+                            <p class="text-sm text-slate-400">Pilihlah <strong>semua nama</strong> terduga yang terdaftar dalam berkas kasus ini untuk menyusun himpunan semesta pembicaraan ($S$):</p>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                                ${['Anne','Zea','Adel','James','Celyn'].map(name => {
+                                    const checked = answersState[2].includes(name) ? 'checked' : '';
+                                    return `
                                         <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-2 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                            <input type="checkbox" value="${name}" onchange="toggleCheckbox(this.value)" class="accent-amber-500"> ${name}
+                                            <input type="checkbox" value="${name}" onchange="toggleCheckbox('${name}')" ${checked} class="accent-amber-500"> ${name}
                                         </label>
-                                    `).join('')}
-                                </div>
+                                    `;
+                                }).join('')}
                             </div>
                         </div>
                     `;
                     break;
 
                 case 3:
-                    btn.innerText = "Saring Bukti Fakta";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 03: INFORMASI AWAL</div>
-                            <h2 class="text-xl font-bold text-white">Informasi Tambahan</h2>
-                            <p class="text-slate-300 text-sm">Petugas sekolah memberikan beberapa lembar catatan data lapangan:</p>
-                            <div class="space-y-2 text-xs font-mono text-slate-300">
-                                <div class="p-2 bg-slate-950/40 rounded border border-slate-800/40">1. Ruang guru berada di lantai dua.</div>
-                                <div class="p-2 bg-slate-950/40 rounded border border-slate-800/40">2. Apakah ruang guru sudah dikunci?</div>
-                                <div class="p-2 bg-slate-950/40 rounded border border-slate-800/40">3. CCTV koridor aktif hingga pukul 10.30.</div>
-                                <div class="p-2 bg-slate-950/40 rounded border border-slate-800/40">4. Tolong matikan lampu sebelum pulang.</div>
-                                <div class="p-2 bg-slate-950/40 rounded border border-slate-800/40">5. Lemari penyimpanan dokumen berada di ruang guru.</div>
+                            <h3 class="text-base font-semibold text-slate-300">📌 Kasus 1 - Langkah 2: Memahami Pernyataan Petunjuk</h3>
+                            <div class="bg-amber-500/5 border border-amber-500/10 p-4 rounded-xl space-y-2 text-xs text-slate-400">
+                                <p><strong>Berkas Log Kasus mencantumkan 5 Pernyataan Kunci berikut:</strong></p>
+                                <ol class="list-decimal list-inside space-y-1 font-mono text-amber-500/90">
+                                    <li>Pernyataan 1: Adel berada di ruang server atau James berada di ruang server.</li>
+                                    <li>Pernyataan 2: Jika James berada di ruang server, maka Celyn tidak berada di ruang server.</li>
+                                    <li>Pernyataan 3: Celyn berada di ruang server atau Zea tidak berada di ruang server.</li>
+                                    <li>Pernyataan 4: Jika Anne berada di ruang server, maka Zea berada di ruang server.</li>
+                                    <li>Pernyataan 5: Diketahui pasti bahwa Anne berada di ruang server berdasarkan log kartu akses pintu depan.</li>
+                                </ol>
                             </div>
-                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80 mt-4">
-                                <p class="text-sm font-bold text-white mb-3">❓ Pilih informasi yang dapat digunakan sebagai fakta investigasi (Memiliki nilai Kebenaran):</p>
-                                <div class="flex flex-wrap gap-3 font-mono text-xs">
-                                    ${[1, 2, 3, 4, 5].map(num => `
+                            <p class="text-sm text-slate-400">Pilih nomor pernyataan yang memuat **fakta tunggal atau kepastian posisi** tanpa bersyarat sebagai titik awal analisis deduksi kita:</p>
+                            <div class="flex flex-wrap gap-3 pt-2">
+                                ${[1, 2, 3, 4, 5].map(num => {
+                                    const checked = answersState[3].includes(String(num)) ? 'checked' : '';
+                                    return `
                                         <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-4 py-2 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                            <input type="checkbox" value="${num}" onchange="toggleCheckbox('${num}')" class="accent-amber-500"> Nomor ${num}
+                                            <input type="checkbox" value="${num}" onchange="toggleCheckbox('${num}')" ${checked} class="accent-amber-500"> Nomor ${num}
                                         </label>
-                                    `).join('')}
-                                </div>
+                                    `;
+                                }).join('')}
                             </div>
                         </div>
                     `;
                     break;
 
                 case 4:
-                    btn.innerText = "Verifikasi";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 04: BUKTI TEMUAN 1</div>
-                            <h2 class="text-xl font-bold text-white">Bukti 1: Rekaman CCTV Koridor</h2>
-                            <div class="bg-slate-950/40 border-l-4 border-amber-500 p-4 rounded-r-xl code-font text-xs space-y-1">
-                                <p class="text-amber-400 font-bold">⏱️ TIME LOG: 09.18 WIB</p>
-                                <p class="text-slate-200">Terlihat seseorang berjalan menuju arah ruang guru. Karena kualitas rekaman kurang baik, identitas orang tersebut belum dapat dikenali.</p>
+                            <h3 class="text-base font-semibold text-slate-300">🔍 Kasus 1 - Langkah 3: Deduksi Status Anne</h3>
+                            <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl font-mono text-xs text-slate-400">
+                                <strong>Premis Acuan:</strong><br>
+                                Pernyataan 5: "Diketahui pasti bahwa Anne berada di ruang server."
                             </div>
-                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80 mt-4">
-                                <p class="text-sm font-bold text-white mb-3">❓ Apakah bukti ini sudah cukup kuat untuk menentukan pelaku?</p>
-                                <div class="space-y-2 text-xs font-mono">
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="radio" name="screen4" value="Ya" onclick="setRadioValue('Ya')" class="accent-amber-500"> Ya
-                                    </label>
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="radio" name="screen4" value="Tidak" onclick="setRadioValue('Tidak')" class="accent-amber-500"> Tidak
-                                    </label>
-                                </div>
+                            <p class="text-sm text-slate-400">Berdasarkan fakta konkrit di atas, apakah pernyataan tunggal <strong class="text-amber-500 font-mono">p: "Anne berada di ruang server"</strong> bernilai Benar (True)?</p>
+                            <div class="space-y-2 pt-2">
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen4" value="Ya" onclick="setRadioValue('Ya')" ${answersState[4] === 'Ya' ? 'checked' : ''} class="accent-amber-500"> Ya, Bernilai BENAR
+                                </label>
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen4" value="Tidak" onclick="setRadioValue('Tidak')" ${answersState[4] === 'Tidak' ? 'checked' : ''} class="accent-amber-500"> Tidak, Bernilai SALAH
+                                </label>
                             </div>
                         </div>
                     `;
                     break;
 
                 case 5:
-                    btn.innerText = "Validasi Alibi";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 05: BUKTI TEMUAN 2</div>
-                            <h2 class="text-xl font-bold text-white">Bukti 2: CCTV Kantin</h2>
-                            <div class="bg-slate-950/40 border-l-4 border-emerald-500 p-4 rounded-r-xl code-font text-xs space-y-1">
-                                <p class="text-emerald-400 font-bold">⏱️ TIME LOG: 09.20 WIB</p>
-                                <p class="text-slate-200">Zea terlihat sedang mengantre dan membeli minuman segar di kantin sekolah.</p>
+                            <h3 class="text-base font-semibold text-slate-300">🔍 Kasus 1 - Langkah 4: Modus Ponens Status Zea</h3>
+                            <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl font-mono text-xs text-slate-400 space-y-1">
+                                <strong>Premis Terverifikasi:</strong> Anne = BENAR<br>
+                                <strong>Aturan Logika (Pernyataan 4):</strong> "Jika Anne berada di ruang server ($p$), maka Zea berada di ruang server ($q$)." ($p \rightarrow q$)
                             </div>
-                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800 text-xs">
-                                <span class="text-amber-400 font-bold">Kesaksian Zea:</span> "Saya berada di kantin."
-                            </div>
-                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                                <p class="text-sm font-bold text-white mb-3">❓ Status dari kesaksian/pernyataan Zea adalah:</p>
-                                <div class="space-y-2 text-xs font-mono">
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="radio" name="screen5" value="Didukung" onclick="setRadioValue('Didukung')" class="accent-amber-500"> Didukung Bukti Faktual
-                                    </label>
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="radio" name="screen5" value="Bertentangan" onclick="setRadioValue('Bertentangan')" class="accent-amber-500"> Bertentangan dengan Bukti
-                                    </label>
-                                </div>
+                            <p class="text-sm text-slate-400">Menggunakan penarikan kesimpulan **Modus Ponens**, apa status keberadaan Zea di ruang server?</p>
+                            <div class="space-y-2 pt-2">
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen5" value="Zea_Benar" onclick="setRadioValue('Zea_Benar')" ${answersState[5] === 'Zea_Benar' ? 'checked' : ''} class="accent-amber-500"> Zea berada di ruang server (BENAR)
+                                </label>
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen5" value="Zea_Salah" onclick="setRadioValue('Zea_Salah')" ${answersState[5] === 'Zea_Salah' ? 'checked' : ''} class="accent-amber-500"> Zea tidak berada di ruang server (SALAH)
+                                </label>
                             </div>
                         </div>
                     `;
                     break;
 
                 case 6:
-                    btn.innerText = "Validasi Alibi";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 06: BUKTI TEMUAN 3</div>
-                            <h2 class="text-xl font-bold text-white">Bukti 3: CCTV Perpustakaan</h2>
-                            <div class="bg-slate-950/40 border-l-4 border-emerald-500 p-4 rounded-r-xl code-font text-xs space-y-1">
-                                <p class="text-emerald-400 font-bold">⏱️ TIME LOG: 09.22 WIB</p>
-                                <p class="text-slate-200">Anne terekam kamera pengawas sedang memasuki pintu utama perpustakaan sekolah.</p>
+                            <h3 class="text-base font-semibold text-slate-300">🔍 Kasus 1 - Langkah 5: Silogisme Disjungtif Status Celyn</h3>
+                            <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl font-mono text-xs text-slate-400 space-y-1">
+                                <strong>Premis Terverifikasi:</strong> Zea = BENAR (Berarti negasinya, $\neg q$ "Zea tidak berada di ruang server" bernilai SALAH)<br>
+                                <strong>Aturan Logika (Pernyataan 3):</strong> "Celyn berada di ruang server ($r$) atau Zea tidak berada di ruang server ($\neg q$)." ($r \lor \neg q$)
                             </div>
-                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800 text-xs">
-                                <span class="text-amber-400 font-bold">Kesaksian Anne:</span> "Saya berada di perpustakaan."
-                            </div>
-                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                                <p class="text-sm font-bold text-white mb-3">❓ Status dari kesaksian/pernyataan Anne adalah:</p>
-                                <div class="space-y-2 text-xs font-mono">
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="radio" name="screen6" value="Didukung" onclick="setRadioValue('Didukung')" class="accent-amber-500"> Didukung Bukti Faktual
-                                    </label>
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="radio" name="screen6" value="Bertentangan" onclick="setRadioValue('Bertentangan')" class="accent-amber-500"> Bertentangan dengan Bukti
-                                    </label>
-                                </div>
+                            <p class="text-sm text-slate-400">Karena komponen $\neg q$ bernilai SALAH, agar kalimat disjungsi ($r \lor \neg q$) bernilai BENAR, maka pernyataan $r$ harus bernilai:</p>
+                            <div class="space-y-2 pt-2">
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen6" value="Benar" onclick="setRadioValue('Benar')" ${answersState[6] === 'Benar' ? 'checked' : ''} class="accent-amber-500"> BENAR, Celyn berada di ruang server
+                                </label>
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen6" value="Salah" onclick="setRadioValue('Salah')" ${answersState[6] === 'Salah' ? 'checked' : ''} class="accent-amber-500"> SALAH, Celyn tidak berada di ruang server
+                                </label>
                             </div>
                         </div>
                     `;
                     break;
 
                 case 7:
-                    btn.innerText = "Analisis Konjungsi";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 07: BUKTI TEMUAN 4 (KONJUNGSI)</div>
-                            <h2 class="text-xl font-bold text-white">Bukti 4: CCTV Laboratorium</h2>
-                            <div class="bg-slate-950/40 border-l-4 border-amber-500 p-4 rounded-r-xl code-font text-xs space-y-1">
-                                <p class="text-amber-400 font-bold">⏱️ TIME LOG: 09.25 WIB</p>
-                                <p class="text-slate-200">Adel terlihat sendirian membaca buku di laboratorium. Tim IT tidak menemukan rekaman lain yang menunjukkan keberadaan anggota kelompoknya di lokasi.</p>
-                            </div>
-                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800 text-xs">
-                                <span class="text-amber-400 font-bold">Kesaksian Konjungsi Adel:</span><br>
-                                "Saya berada di laboratorium <span class="underline decoration-amber-500 font-bold font-mono">DAN</span> mengerjakan tugas kelompok."
-                            </div>
-                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                                <p class="text-sm font-bold text-white mb-3">❓ Komponen proposisi bagian mana yang terbukti valid berdasarkan rekaman?</p>
-                                <div class="space-y-2 text-xs font-mono">
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="checkbox" value="lab" onchange="toggleCheckbox('lab')" class="accent-amber-500"> Berada di laboratorium
-                                    </label>
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="checkbox" value="tugas" onchange="toggleCheckbox('tugas')" class="accent-amber-500"> Mengerjakan tugas kelompok
-                                    </label>
-                                </div>
+                            <h3 class="text-base font-semibold text-slate-300">📊 Kasus 1 - Langkah 6: Tabel Kebenaran Implikasi</h3>
+                            <p class="text-sm text-slate-400">Mari uji aturan Pernyataan 2: "Jika James berada di ruang server ($s$), maka Celyn tidak berada di ruang server ($\neg text{Celyn}$)." Pilihlah kondisi baris pada tabel implikasi ($A \rightarrow B$) yang akan bernilai <strong>SALAH (False)</strong>:</p>
+                            <div class="grid grid-cols-1 gap-2 pt-1 font-mono text-xs">
+                                ${[
+                                    { id: '1', txt: 'Kondisi 1: Antaseden (A) BENAR & Konsekuen (B) BENAR' },
+                                    { id: '2', txt: 'Kondisi 2: Antaseden (A) BENAR & Konsekuen (B) SALAH' },
+                                    { id: '3', txt: 'Kondisi 3: Antaseden (A) SALAH & Konsekuen (B) BENAR' },
+                                    { id: '4', txt: 'Kondisi 4: Antaseden (A) SALAH & Konsekuen (B) SALAH' }
+                                ].map(item => {
+                                    const checked = answersState[7].includes(item.id) ? 'checked' : '';
+                                    return `
+                                        <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                            <input type="checkbox" value="${item.id}" onchange="toggleCheckbox('${item.id}')" ${checked} class="accent-amber-500"> ${item.txt}
+                                        </label>
+                                    `;
+                                }).join('')}
                             </div>
                         </div>
                     `;
                     break;
 
                 case 8:
-                    btn.innerText = "Analisis Disjunsi";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 08: BUKTI TEMUAN 5 (DISJUNSI)</div>
-                            <h2 class="text-xl font-bold text-white">Bukti 5: Log Logika Akses Pintu</h2>
-                            <div class="bg-slate-950/40 border-l-4 border-amber-500 p-4 rounded-r-xl code-font text-xs space-y-1">
-                                <p class="text-amber-400 font-bold">⏱️ TIME LOG: 09.15 WIB</p>
-                                <p class="text-slate-200">Sistem kunci digital mencatat ID Card milik James memvalidasi gerbang masuk ruang klub robotika.</p>
+                            <h3 class="text-base font-semibold text-slate-300">🔍 Kasus 1 - Langkah 7: Modus Tollens Status James</h3>
+                            <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl font-mono text-xs text-slate-400 space-y-1">
+                                <strong>Premis Terverifikasi:</strong> Celyn = BENAR (Maka kalimat "Celyn tidak berada di ruang server" bernilai SALAH)<br>
+                                <strong>Aturan Logika (Pernyataan 2):</strong> "Jika James berada di ruang server, maka Celyn tidak berada di ruang server."
                             </div>
-                            <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800 text-xs">
-                                <span class="text-amber-400 font-bold">Kesaksian Disjunsi James:</span><br>
-                                "Saya berada di ruang klub <span class="underline decoration-amber-500 font-bold font-mono">ATAU</span> lapangan basket."
-                            </div>
-                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                                <p class="text-sm font-bold text-white mb-3">❓ Menggunakan prinsip hukum Disjunsi, apakah seluruh kalimat James tersebut masih mungkin bernilai BENAR?</p>
-                                <div class="space-y-2 text-xs font-mono">
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="radio" name="screen8" value="Ya" onclick="setRadioValue('Ya')" class="accent-amber-500"> Ya, Masih Mungkin Benar
-                                    </label>
-                                    <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-3 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                        <input type="radio" name="screen8" value="Tidak" onclick="setRadioValue('Tidak')" class="accent-amber-500"> Tidak, Auto Salah
-                                    </label>
-                                </div>
+                            <p class="text-sm text-slate-400">Melalui penarikan kesimpulan **Modus Tollens**, karena akibatnya terbukti SALAH, maka status posisi James adalah:</p>
+                            <div class="space-y-2 pt-2">
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen8" value="James_Benar" onclick="setRadioValue('James_Benar')" ${answersState[8] === 'James_Benar' ? 'checked' : ''} class="accent-amber-500"> James berada di ruang server (BENAR)
+                                </label>
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen8" value="James_Salah" onclick="setRadioValue('James_Salah')" ${answersState[8] === 'James_Salah' ? 'checked' : ''} class="accent-amber-500"> James tidak berada di ruang server (SALAH)
+                                </label>
                             </div>
                         </div>
                     `;
                     break;
 
                 case 9:
-                    btn.innerText = "Analisis Alibi";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 09: BUKTI TEMUAN 6 (NEGASI)</div>
-                            <h2 class="text-xl font-bold text-white">Bukti 6: Kesaksian Petugas Kebersihan</h2>
-                            <div class="bg-slate-950/40 border-l-4 border-red-500 p-4 rounded-r-xl code-font text-xs space-y-1">
-                                <p class="text-red-400 font-bold">📋 LAPORAN SAKSI MATA</p>
-                                <p class="text-slate-200">"Saya menyapu jalan taman tengah dan saya tidak melihat siapa pun berada di taman sekolah antara pukul 09.15–09.30."</p>
+                            <h3 class="text-base font-semibold text-slate-300">🔍 Kasus 1 - Langkah 8: Analisis Disjungsi Final Status Adel</h3>
+                            <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl font-mono text-xs text-slate-400 space-y-1">
+                                <strong>Premis Terverifikasi:</strong> James = SALAH (Tidak di ruang server)<br>
+                                <strong>Aturan Logika (Pernyataan 1):</strong> "Adel berada di ruang server atau James berada di ruang server."
                             </div>
-                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                                <p class="text-sm font-bold text-white mb-3">❓ Kesaksian alibi milik siapa yang mulai rontok/perlu dicurigai lebih dalam?</p>
-                                <div class="space-y-2 text-xs font-mono">
-                                    ${['Anne', 'Zea', 'Adel', 'James', 'Celyn'].map(name => `
-                                        <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-2.5 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                            <input type="radio" name="screen9" value="${name}" onclick="setRadioValue('${name}')" class="accent-amber-500"> Alibi ${name}
-                                        </label>
-                                    `).join('')}
-                                </div>
+                            <p class="text-sm text-slate-400">Agar disjungsi aturan di atas tetap bernilai BENAR secara keseluruhan sistem, status keberadaan Adel dipastikan:</p>
+                            <div class="space-y-2 pt-2">
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen9" value="Adel_Benar" onclick="setRadioValue('Adel_Benar')" ${answersState[9] === 'Adel_Benar' ? 'checked' : ''} class="accent-amber-500"> Adel berada di ruang server (BENAR)
+                                </label>
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen9" value="Adel_Salah" onclick="setRadioValue('Adel_Salah')" ${answersState[9] === 'Adel_Salah' ? 'checked' : ''} class="accent-amber-500"> Adel tidak berada di ruang server (SALAH)
+                                </label>
                             </div>
                         </div>
                     `;
                     break;
 
                 case 10:
-                    btn.innerText = "Kunci Bukti Utama";
                     content.innerHTML = `
                         <div class="space-y-4">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 10: BUKTI UTAMA</div>
-                            <h2 class="text-xl font-bold text-white">Bukti Terakhir: Pemulihan Harddisk CCTV</h2>
-                            <div class="bg-slate-950/50 p-4 rounded-xl border border-slate-800 code-font text-xs space-y-2">
-                                <span class="text-red-400 font-bold block">🚨 DATA REKAMAN RUANG GURU (RESTORED):</span>
-                                <ul class="list-disc list-inside space-y-1 text-slate-300">
-                                    <li>Pelaku memasuki ruang guru pukul <span class="text-white font-bold">09.23</span></li>
-                                    <li>Pelaku membuka lemari penyimpanan</li>
-                                    <li>Pelaku mengambil map dokumen berisi kunci jawaban</li>
-                                    <li>Pelaku teridentifikasi jelas <span class="text-amber-400 font-bold">mengenakan jaket klub matematika</span></li>
-                                </ul>
-                            </div>
-                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                                <p class="text-sm font-bold text-white mb-3">❓ Siapa yang memiliki benang merah keterkaitan paling kuat dengan bukti pakaian atribut pelaku?</p>
-                                <div class="space-y-2 text-xs font-mono">
-                                    ${['Anne', 'Zea', 'Adel', 'James', 'Celyn'].map(name => `
-                                        <label class="flex items-center gap-2 bg-slate-900 border border-slate-800 p-2.5 rounded-lg cursor-pointer hover:bg-slate-800/50">
-                                            <input type="radio" name="screen10" value="${name}" onclick="setRadioValue('${name}')" class="accent-amber-500"> ${name}
-                                        </label>
-                                    `).join('')}
-                                </div>
+                            <h3 class="text-base font-semibold text-slate-300">🎯 Kasus 1 - Langkah 9: Mengunci Pelaku Utama</h3>
+                            <p class="text-sm text-slate-400">Dari hasil seluruh rangkaian inferensi logika deduktif kita, siapakah terduga yang **TIDAK berada di ruang server** dan alibinya terbukti valid?</p>
+                            <div class="space-y-2 pt-2">
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen10" value="Adel" onclick="setRadioValue('Adel')" ${answersState[10] === 'Adel' ? 'checked' : ''} class="accent-amber-500"> Adel
+                                </label>
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen10" value="James" onclick="setRadioValue('James')" ${answersState[10] === 'James' ? 'checked' : ''} class="accent-amber-500"> James
+                                </label>
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen10" value="Celyn" onclick="setRadioValue('Celyn')" ${answersState[10] === 'Celyn' ? 'checked' : ''} class="accent-amber-500"> Celyn
+                                </label>
                             </div>
                         </div>
                     `;
                     break;
 
                 case 11:
-                    btn.innerText = "Saya Siap Menjawab";
                     content.innerHTML = `
-                        <div class="space-y-5">
-                            <div class="text-xs font-bold text-amber-500 uppercase font-mono tracking-wider">// SCREEN 11: INTERACTIVE BOARD</div>
-                            <div>
-                                <h2 class="text-2xl font-black text-white">Papan Investigasi</h2>
-                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">Seluruh bukti telah berhasil dikumpulkan. Sebelum menentukan pelaku, periksa kembali kesaksian dan bukti yang tersedia. Perhatikan siapa yang memiliki alibi yang didukung bukti dan siapa yang masih memiliki keterkaitan dengan lokasi kejadian.</p>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3">
-                                    <span class="text-xs font-bold text-slate-400 block mb-2 font-mono">// DAFTAR TERSANGKA</span>
-                                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 gap-1.5">
-                                        ${Object.keys(suspects).map(key => `
-                                            <button onclick="showSuspectDetail('${key}')" class="text-left text-xs bg-slate-900 hover:bg-amber-500/10 border border-slate-800 hover:border-amber-500/40 p-2.5 rounded-lg transition-colors font-semibold text-slate-300 flex items-center justify-between cursor-pointer">
-                                                <span>${suspects[key].name}</span> &rarr;
-                                            </button>
-                                        `).join('')}
-                                    </div>
-                                </div>
-                                <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3">
-                                    <span class="text-xs font-bold text-slate-400 block mb-2 font-mono">// ARSIP BUKTI</span>
-                                    <div class="grid grid-cols-1 gap-1.5 max-h-[145px] overflow-y-auto">
-                                        ${Object.keys(proofs).map(key => `
-                                            <button onclick="showProofDetail('${key}')" class="text-left text-[11px] bg-slate-900 hover:bg-blue-500/10 border border-slate-800 hover:border-blue-500/40 p-2 rounded transition-colors text-slate-400 truncate cursor-pointer">
-                                                📁 ${proofs[key].title}
-                                            </button>
-                                        `).join('')}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="boardViewer" class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-4 min-h-[110px] text-xs flex flex-col justify-center items-center text-slate-500 text-center italic">
-                                Klik nama tersangka atau berkas bukti di atas untuk menampilkan rangkuman intelijen kasus secara detail.
+                        <div class="space-y-4">
+                            <h2 class="text-lg font-bold heading-font text-amber-500">⚡ Persidangan Logika: Pembuktian Formal</h2>
+                            <p class="text-sm text-slate-400 leading-relaxed text-justify">
+                                Detektif Logix, Anda diminta mempresentasikan berkas argumentasi Anda ke hadapan Dewan Siber. Kita akan menuliskan bukti formal menggunakan metode <strong class="text-slate-300">Deduksi Alami (Natural Deduction)</strong> untuk membuktikan secara mutlak keabsahan analisis kita.
+                            </p>
+                            <div class="bg-slate-900 p-4 rounded-xl font-mono text-xs text-slate-400 space-y-2">
+                                <p class="text-amber-500 font-bold">// Kumpulan Premis Resmi Kasus 1:</p>
+                                <p>1. $A \lor J$ (Adel atau James)</p>
+                                <p>2. $J \rightarrow \neg C$ (Jika James maka tidak Celyn)</p>
+                                <p>3. $C \lor \neg Z$ (Celyn atau tidak Zea)</p>
+                                <p>4. $An \rightarrow Z$ (Jika Anne maka Zea)</p>
+                                <p>5. $An$ (Anne berada di sana)</p>
+                                <p class="text-amber-500 font-bold">Goal / Kesimpulan Akhir: $\neg J$ (James tidak berada di ruang server)</p>
                             </div>
                         </div>
                     `;
+                    btn.innerText = "Lanjutkan ke Bukti Formal";
                     break;
 
                 case 12:
-                    btn.innerText = "Ajukan Dakwaan Resmi";
                     content.innerHTML = `
-                        <div class="space-y-4 text-center">
-                            <div class="text-xs font-bold text-red-500 uppercase font-mono tracking-wider">// SCREEN 12: DAKWAAN FINAL</div>
-                            <h2 class="text-2xl font-black text-white">Final Decision</h2>
-                            <p class="text-slate-400 text-sm max-w-md mx-auto">Berdasarkan seluruh analisis bukti logika matematika dan alibi di atas, siapa siswa yang paling mungkin mengambil kunci jawaban?</p>
-                            
-                            <div class="max-w-xs mx-auto text-left font-mono text-xs space-y-2 mt-6">
-                                ${['Anne', 'Zea', 'Adel', 'James', 'Celyn'].map(name => `
-                                    <label class="flex items-center gap-3 bg-slate-900 border border-slate-800 p-3 rounded-xl cursor-pointer hover:bg-slate-800/80">
-                                        <input type="radio" name="final" value="${name}" onclick="setRadioValue('${name}')" class="accent-red-500 scale-110"> ${name}
-                                    </label>
-                                `).join('')}
+                        <div class="space-y-4">
+                            <h3 class="text-base font-semibold text-slate-300">📝 Kasus 1 - Langkah 10: Mengisi Langkah Bukti</h3>
+                            <p class="text-sm text-slate-400">Langkah ke-6 dalam pembuktian formal kita berbunyi: <strong class="text-amber-500 font-mono">6. Z (Modus Ponens dari Premis 4 dan 5)</strong>. Selanjutnya, kita melakukan inferensi menggunakan Premis 3 ($C \lor \neg Z$) dan langkah 6 tersebut. Aturan inferensi manakah yang tepat digunakan untuk mendapatkan kesimpulan <strong class="text-slate-200 font-mono">"C"</strong>?</p>
+                            <div class="space-y-2 pt-2">
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen12" value="DS" onclick="setRadioValue('DS')" ${answersState[12] === 'DS' ? 'checked' : ''} class="accent-amber-500"> Silogisme Disjungtif (Disjunctive Syllogism)
+                                </label>
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen12" value="HS" onclick="setRadioValue('HS')" ${answersState[12] === 'HS' ? 'checked' : ''} class="accent-amber-500"> Silogisme Hipotesis (Hypothetical Syllogism)
+                                </label>
+                                <label class="flex items-center gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 cursor-pointer">
+                                    <input type="radio" name="screen12" value="MP" onclick="setRadioValue('MP')" ${answersState[12] === 'MP' ? 'checked' : ''} class="accent-amber-500"> Modus Ponens
+                                </label>
                             </div>
                         </div>
                     `;
                     break;
 
                 case 13:
-                    // SCREEN REVEAL AKHIR (Berhasil / Gagal di-handle fungsi renderRevealScreen)
+                    // Verifikasi Akhir
+                    const isCaseComplete = (answersState[10] === 'James' && answersState[12] === 'DS');
+                    renderRevealScreen(isCaseComplete);
                     break;
             }
         }
 
-        // Sub-renderers untuk Papan Investigasi Interaktif (Screen 11)
-        function showSuspectDetail(id) {
-            const data = suspects[id];
-            document.getElementById('boardViewer').innerHTML = `
-                <div class="text-left space-y-2 w-full animate-fadeIn">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-1.5">
-                        <span class="text-sm font-bold text-amber-400">${data.name}</span>
-                        <span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-300 font-mono border border-amber-500/20">${data.status}</span>
-                    </div>
-                    <p><strong class="text-slate-400">Kesaksian:</strong> <span class="italic">"${data.alibi}"</span></p>
-                    <p><strong class="text-slate-400">Bukti Berhubungan:</strong><br><span class="block mt-1 bg-slate-900 p-2 rounded border border-slate-800/80 font-mono">${data.proof}</span></p>
-                    <p class="text-slate-300 border-t border-slate-800/50 pt-1.5"><strong class="text-slate-400">Catatan Investigasi:</strong> ${data.note}</p>
-                </div>
-            `;
-        }
-
-        function showProofDetail(id) {
-            const data = proofs[id];
-            document.getElementById('boardViewer').innerHTML = `
-                <div class="text-left space-y-2 w-full animate-fadeIn">
-                    <div class="border-b border-slate-800 pb-1.5">
-                        <span class="text-sm font-bold text-blue-400">📁 ${data.title}</span>
-                    </div>
-                    <p class="text-slate-200 leading-relaxed font-mono text-[11px] bg-slate-900 p-3 rounded border border-slate-800">${data.desc}</p>
-                </div>
-            `;
-        }
-
-        // Input Handlers
+        // Input Handlers disesuaikan dengan State per screen
         function toggleCheckbox(val) {
-            let idx = selectedAnswers.indexOf(val);
-            if(idx > -1) selectedAnswers.splice(idx, 1);
-            else selectedAnswers.push(val);
-        }
-
-        // Fungsi mundur ke screen sebelumnya
-        function handleBack() {
-            if (currentScreen > 1) {
-                currentScreen--;
-                // Kembalikan fungsionalitas tombol utama ke validasi normal jika user mundur dari posisi "Lanjutkan ->"
-                document.getElementById('btnAction').setAttribute('onclick', 'handleAction()');
-                renderScreen();
-            }
+            let activeAnswers = answersState[currentScreen];
+            let idx = activeAnswers.indexOf(val);
+            if(idx > -1) activeAnswers.splice(idx, 1);
+            else activeAnswers.push(val);
         }
 
         function setRadioValue(val) {
-            singleAnswer = val;
-        }
-
-        // Core Game Validation logic
-        function handleAction() {
-            const fb = document.getElementById('feedbackBox');
-
-            // --- VALIDASI SCREEN 2 ---
-            if(currentScreen === 2) {
-                if(selectedAnswers.length === 0) { alert("Pilih jawaban sebelum memverifikasi!"); return; }
-                if(selectedAnswers.length === 5) {
-                    showFeedback(true, "Semua pernyataan di atas dapat dinilai benar atau salah sehingga termasuk proposisi.");
-                } else {
-                    showFeedback(false, "Kurang tepat. Ingat, proposisi adalah kalimat deklaratif yang dapat ditentukan nilai kebenarannya (benar/salah), tidak peduli alibi itu jujur atau bohong.");
-                    return;
-                }
-            }
-            // --- VALIDASI SCREEN 3 ---
-            else if(currentScreen === 3) {
-                if(selectedAnswers.length === 0) { alert("Pilih jawaban sebelum memverifikasi!"); return; }
-                let isCorrect = selectedAnswers.includes('1') && selectedAnswers.includes('3') && selectedAnswers.includes('5') && selectedAnswers.length === 3;
-                if(isCorrect) {
-                    showFeedback(true, "Hanya pernyataan (1, 3, 5) yang memiliki nilai benar atau salah yang dapat digunakan sebagai fakta investigasi.");
-                } else {
-                    showFeedback(false, "Salah. Nomor 2 (Kalimat tanya) dan Nomor 4 (Kalimat perintah) tidak memiliki nilai kebenaran objektif, sehingga bukan proposisi fakta.");
-                    return;
-                }
-            }
-            // --- VALIDASI SCREEN 4 ---
-            else if(currentScreen === 4) {
-                if(!singleAnswer) { alert("Pilih opsi jawaban!"); return; }
-                if(singleAnswer === 'Tidak') {
-                    showFeedback(true, "Satu bukti belum cukup untuk menentukan pelaku. Investigasi membutuhkan beberapa fakta yang saling mendukung.");
-                } else {
-                    showFeedback(false, "Pikirkan lagi. Rekaman kabur tanpa identitas jelas tentu tidak cukup untuk menuduh seseorang.");
-                    return;
-                }
-            }
-            // --- VALIDASI SCREEN 5 ---
-            else if(currentScreen === 5) {
-                if(!singleAnswer) { alert("Pilih opsi jawaban!"); return; }
-                if(singleAnswer === 'Didukung') {
-                    showFeedback(true, "Bukti CCTV mendukung pernyataan Zea.");
-                } else {
-                    showFeedback(false, "Salah, CCTV jelas merekam Zea sedang bertransaksi di kantin.");
-                    return;
-                }
-            }
-            // --- VALIDASI SCREEN 6 ---
-            else if(currentScreen === 6) {
-                if(!singleAnswer) { alert("Pilih opsi jawaban!"); return; }
-                if(singleAnswer === 'Didukung') {
-                    showFeedback(true, "Pernyataan Anne sesuai dengan bukti yang ditemukan.");
-                } else {
-                    showFeedback(false, "Kurang tepat, rekaman menunjukkan ia masuk ke perpustakaan sesuai alibinya.");
-                    return;
-                }
-            }
-            // --- VALIDASI SCREEN 7 ---
-            else if(currentScreen === 7) {
-                if(selectedAnswers.length === 0) { alert("Pilih opsi komponen!"); return; }
-                let isCorrect = selectedAnswers.includes('lab') && !selectedAnswers.includes('tugas');
-                if(isCorrect) {
-                    showFeedback(true, "Kata 'dan' merupakan konjungsi. Agar seluruh pernyataan benar, kedua bagian harus terbukti benar. Saat ini hanya bagian pertama yang memiliki bukti.");
-                } else {
-                    showFeedback(false, "Perhatikan! Tidak ada bukti kamera atau saksi yang mengonfirmasi keberadaan anggota kelompok lain.");
-                    return;
-                }
-            }
-            // --- VALIDASI SCREEN 8 ---
-            else if(currentScreen === 8) {
-                if(!singleAnswer) { alert("Pilih opsi jawaban!"); return; }
-                if(singleAnswer === 'Ya') {
-                    showFeedback(true, "Kata 'atau' merupakan disjunsi. Jika salah satu bagian benar, maka keseluruhan pernyataan masih dapat dianggap benar.");
-                } else {
-                    showFeedback(false, "Keliru. Pada hukum disjunsi (p ∨ q), kalimat bernilai benar selama minimal ada satu bagiannya yang benar.");
-                    return;
-                }
-            }
-            // --- VALIDASI SCREEN 9 ---
-            else if(currentScreen === 9) {
-                if(!singleAnswer) { alert("Pilih tersangka!"); return; }
-                if(singleAnswer === 'Celyn') {
-                    showFeedback(true, "Belum cukup untuk menyimpulkan siapa pelaku, tetapi kesaksian/pernyataan Celyn mulai kehilangan dukungan bukti.");
-                } else {
-                    showFeedback(false, "Saksi mata membersihkan jalanan taman, cari siswa yang mengaku berada di taman.");
-                    return;
-                }
-            }
-            // --- VALIDASI SCREEN 10 ---
-            else if(currentScreen === 10) {
-                if(!singleAnswer) { alert("Pilih tersangka!"); return; }
-                if(singleAnswer === 'Celyn') {
-                    showFeedback(true, "Saat ini Celyn menjadi orang yang paling sesuai dengan bukti atribut jaket yang ditemukan.");
-                } else {
-                    showFeedback(false, "Periksa kembali data biografi di silabus, siapa yang tergabung di klub matematika?");
-                    return;
-                }
-            }
-            // --- VALIDASI SCREEN 12 (FINAL DECISION) ---
-            else if(currentScreen === 12) {
-                if(!singleAnswer) { alert("Tentukan keputusan dakwaan final kamu!"); return; }
-                if(singleAnswer === 'Celyn') {
-                    renderRevealScreen(true);
-                    return;
-                } else {
-                    renderRevealScreen(false);
-                    return;
-                }
-            }
-
-            // Pindah Screen jika lolos validasi kuis
-            currentScreen++;
-            if(currentScreen <= 12) {
-                if(fb.classList.contains('hidden')) {
-                    renderScreen();
-                } else {
-                    document.getElementById('btnAction').innerText = "Lanjutkan &rarr;";
-                    document.getElementById('btnAction').setAttribute('onclick', 'forceNext()');
-                }
-            }
-        }
-
-        function forceNext() {
-            document.getElementById('btnAction').setAttribute('onclick', 'handleAction()');
-            renderScreen();
+            answersState[currentScreen] = val;
         }
 
         function showFeedback(isSuccess, text) {
             const fb = document.getElementById('feedbackBox');
+            const btn = document.getElementById('btnAction');
             fb.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/20', 'text-emerald-400', 'bg-red-500/10', 'border-red-500/20', 'text-red-400');
             
+            // Catat data feedback ke state global berdasarkan screen aktif saat ini
+            feedbackState[currentScreen] = { isSuccess: isSuccess, text: text };
+
             if(isSuccess) {
                 fb.classList.add('bg-emerald-500/10', 'border', 'border-emerald-500/20', 'text-emerald-400');
                 fb.innerHTML = `<strong>✅ BERHASIL:</strong> ${text}`;
+                btn.innerText = "Lanjutkan &rarr;";
+                btn.setAttribute('onclick', 'forceNext()');
             } else {
                 fb.classList.add('bg-red-500/10', 'border', 'border-red-500/20', 'text-red-400');
                 fb.innerHTML = `<strong>❌ ANALISIS KURANG TEPAT:</strong> ${text}`;
             }
         }
 
-        // Render Akhir Khusus Reveal (Screen 13)
-        function renderRevealScreen(isVictory) {
-            const content = document.getElementById('gameContent');
-            const indicator = document.getElementById('screenIndicator');
-            const btn = document.getElementById('btnAction');
-            const btnBack = document.getElementById('btnBack');
-            
-            indicator.innerText = `SCREEN 13 / 13 // REVEAL`;
-            btnBack.style.opacity = '0';
-            btnBack.disabled = true;
+        function forceNext() {
+            currentScreen++;
+            renderScreen();
+        }
 
-            if(isVictory) {
-                localStorage.setItem(`${currentUser}_case1_done`, 'true');
-
-                btn.innerText = "Selesaikan Modul Kasus";
-                btn.setAttribute('onclick', 'backToHub()');
-                btn.className = "bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(16,185,129,0.2)] cursor-pointer";
-                
-                content.innerHTML = `
-                    <div class="text-center space-y-4">
-                        <span class="text-4xl">🎉</span>
-                        <h2 class="text-2xl font-black text-emerald-400">Investigasi Berhasil!</h2>
-                        <div class="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-2xl max-w-md mx-auto text-xs font-mono text-emerald-300">
-                            Status Kasus: TERPECAHKAN // PELAKU: CELYN
-                        </div>
-                        <div class="text-left bg-slate-950/40 p-5 rounded-xl border border-slate-800 text-xs md:text-sm text-slate-300 space-y-2.5 leading-relaxed">
-                            <p class="font-bold text-white uppercase tracking-wider">// PENJELASAN LOGIKA HUKUM BUKTI:</p>
-                            <p>• Anne, Zea, Adel, dan James memiliki bukti autentik (CCTV & Log Akses digital) yang mendukung eksistensi keberadaan alibi mereka saat kejadian.</p>
-                            <p>• Tidak ditemukan satu pun berkas atau saksi mata yang mendukung kebenaran pernyataan alibi milik Celyn di taman.</p>
-                            <p>• Rekaman CCTV utama Ruang Guru secara valid memperlihatkan pelaku mengenakan jaket instansi Klub Matematika.</p>
-                            <p>• Berdasarkan basis data kesiswaan sekolah, <span class="text-amber-400 font-bold">Celyn merupakan anggota aktif Klub Matematika</span>.</p>
-                            <p class="text-white font-semibold mt-2">Kesimpulan: Seluruh rangkaian proposisi bukti fakta yang tersedia berkonvergensi secara konsisten mengarah mutlak kepada Celyn.</p>
-                        </div>
-                    </div>
-                `;
-            } else {
-                btn.innerText = "Ulangi Analisis Papan Kasus";
-                btn.setAttribute('onclick', 'window.location.reload()');
-                btn.className = "bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer";
-
-                content.innerHTML = `
-                    <div class="text-center space-y-4">
-                        <span class="text-4xl">❌</span>
-                        <h2 class="text-2xl font-black text-red-400">Investigasi Belum Tepat</h2>
-                        <p class="text-slate-300 text-sm max-w-sm mx-auto">Tuduhan dakwaan yang kamu ajukan jatuh ke orang yang salah. Pihak sekolah menghentikan tuntutan karena kurangnya bukti kuat.</p>
-                        <div class="bg-slate-950/60 p-5 rounded-xl border border-slate-800/80 text-left text-xs space-y-2 max-w-md mx-auto">
-                            <span class="text-amber-400 font-bold font-mono block">💡 PETUNJUK INVESTIGATOR:</span>
-                            <p class="text-slate-400 leading-relaxed">Fokus kembali pada eliminasi tersangka yang memiliki alibi kuat (didukung penuh oleh CCTV koridor/kantin/klub) dan cari siapa satu-satunya orang yang paling sesuai dengan atribut jaket di CCTV ruang guru.</p>
-                        </div>
-                    </div>
-                `;
+        function handleBack() {
+            if (currentScreen > 1) {
+                currentScreen--;
+                document.getElementById('btnAction').setAttribute('onclick', 'handleAction()');
+                renderScreen();
             }
         }
 
-        // Tautan diarahkan kembali menuju investigasi-menu.html
+        function handleAction() {
+            if(currentScreen === 1 || currentScreen === 11) {
+                currentScreen++;
+                renderScreen();
+                return;
+            }
+
+            // Validasi Logika Tiap Screen Pembelajaran
+            if(currentScreen === 2) {
+                if(answersState[2].length === 0) { alert("Pilih jawaban sebelum memverifikasi!"); return; }
+                if(answersState[2].length === 5) {
+                    showFeedback(true, "Himpunan semesta pembicaraan $S = \\{\\text{Anne}, \\text{Zea}, \\text{Adel}, \\text{James}, \\text{Celyn}\\}$ berhasil disusun sempurna.");
+                } else {
+                    showFeedback(false, "Jumlah terduga belum lengkap. Periksa kembali dokumen deskripsi kasus.");
+                }
+            }
+            else if(currentScreen === 3) {
+                if(answersState[3].length === 0) { alert("Pilih jawaban sebelum memverifikasi!"); return; }
+                if(answersState[3].length === 1 && answersState[3].includes('5')) {
+                    showFeedback(true, "Benar! Pernyataan 5 adalah Premis Faktual Tunggal ($p \\equiv \\text{True}$). Ini jangkar analisis kita!");
+                } else {
+                    showFeedback(false, "Pernyataan yang Anda pilih masih mengandung kondisi majemuk/syarat implikasi. Cari yang berupa fakta pasti.");
+                }
+            }
+            else if(currentScreen === 4) {
+                if(!answersState[4]) { alert("Pilih opsi jawaban!"); return; }
+                if(answersState[4] === 'Ya') {
+                    showFeedback(true, "Tepat. Berdasarkan kebenaran mutlak log akses, nilai kebenaran variabel proposisi Anne adalah BENAR.");
+                } else {
+                    showFeedback(false, "Bukti digital otentik tidak bisa disangkal. Status kebenaran harus bernilai Benar.");
+                }
+            }
+            else if(currentScreen === 5) {
+                if(!answersState[5]) { alert("Pilih opsi jawaban!"); return; }
+                if(answersState[5] === 'Zea_Benar') {
+                    showFeedback(true, "Brilian! Berdasarkan Modus Ponens: dari $p \\rightarrow q$ dan $p$, disimpulkan secara valid bahwa $q$ (Zea berada di ruang server) bernilai BENAR.");
+                } else {
+                    showFeedback(false, "Ingat aturan Modus Ponens. Jika sebab terjadi, maka akibatnya mutlak ikut terjadi.");
+                }
+            }
+            else if(currentScreen === 6) {
+                if(!answersState[6]) { alert("Pilih opsi jawaban!"); return; }
+                if(answersState[6] === 'Benar') {
+                    showFeedback(true, "Luar biasa! Karena disjungsi menuntut minimal salah satu sisi benar, dan sisi kanan ($\\neg Z$) bernilai salah, maka sisi kiri (Celyn) wajib bernilai BENAR.");
+                } else {
+                    showFeedback(false, "Gunakan prinsip Silogisme Disjungtif. Jika salah satu pilihan salah, pilihan lainnya harus benar.");
+                }
+            }
+            else if(currentScreen === 7) {
+                if(answersState[7].length === 0) { alert("Pilih jawaban sebelum memverifikasi!"); return; }
+                if(answersState[7].length === 1 && answersState[7].includes('2')) {
+                    showFeedback(true, "Koreksi Sempurna! Implikasi $A \\rightarrow B$ hanya bernilai SALAH saat Antaseden BENAR namun Konsekuennya SALAH.");
+                } else {
+                    showFeedback(false, "Analisis tabel kebenaran implikasi kurang akurat. Ingat janji implikasi hanya gugur jika sebab dipenuhi tapi akibat ingkar.");
+                }
+            }
+            else if(currentScreen === 8) {
+                if(!answersState[8]) { alert("Pilih opsi jawaban!"); return; }
+                if(answersState[8] === 'James_Salah') {
+                    showFeedback(true, "Sempurna! Modus Tollens terbukti: $J \\rightarrow \\neg C$, dan karena $\\neg C$ salah (Celyn terbukti Benar), maka $J$ harus SALAH (James tidak di ruang server).");
+                } else {
+                    showFeedback(false, "Tinjau kembali struktur Modus Tollens. Penolakan terhadap akibat berujung pada penolakan terhadap sebab.");
+                }
+            }
+            else if(currentScreen === 9) {
+                if(!answersState[9]) { alert("Pilih opsi jawaban!"); return; }
+                if(answersState[9] === 'Adel_Benar') {
+                    showFeedback(true, "Analisis final mematikan! Karena James bernilai SALAH, maka melalui Silogisme Disjungtif pada $A \\lor J$, Adel dipastikan BENAR berada di ruang server.");
+                } else {
+                    showFeedback(false, "Konjungsi/disjungsi sistem runtuh jika Adel juga bernilai salah. Cek sifat operasi logika 'atau'.");
+                }
+            }
+            else if(currentScreen === 10) {
+                if(!answersState[10]) { alert("Pilih opsi jawaban!"); return; }
+                if(answersState[10] === 'James') {
+                    showFeedback(true, "Tepat Sekali! Alibi James diverifikasi 100% valid secara matematis karena dia tidak berada di dalam ruang server saat insiden terjadi.");
+                } else {
+                    showFeedback(false, "Nama tersebut memiliki nilai kebenaran BENAR (berada di TKP) berdasarkan runtutan logika kita.");
+                }
+            }
+            else if(currentScreen === 12) {
+                if(!answersState[12]) { alert("Pilih opsi jawaban!"); return; }
+                if(answersState[12] === 'DS') {
+                    showFeedback(true, "Tepat! Aturan dari $(\\phi \\lor \\psi)$ dan $\\neg \\psi$ menghasilkan $\\phi$ disebut aturan Silogisme Disjungtif (Disjunctive Syllogism).");
+                } else {
+                    showFeedback(false, "Kombinasi eliminasi tanda 'atau' ($\lor$) dipandu negasi bukan merupakan ciri khas aturan tersebut.");
+                }
+            }
+        }
+
+        function renderRevealScreen(isVictory) {
+            const content = document.getElementById('screenContent');
+            const btn = document.getElementById('btnAction');
+            
+            if(isVictory) {
+                content.innerHTML = `
+                    <div class="text-center space-y-6 py-8 animate-fade-in">
+                        <div class="inline-flex p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full text-4xl mb-2">🏆</div>
+                        <h2 class="text-2xl font-bold heading-font text-emerald-400">KASUS BERHASIL DIPECAHKAN!</h2>
+                        <p class="text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
+                            Kerja bagus, Detektif <span class="text-slate-200 font-semibold">${currentUser}</span>! Deduksi matematis Anda berhasil membersihkan nama <strong class="text-amber-500">James</strong> dari tuduhan siber dan mengamankan bukti konkrit untuk rekonstruksi kasus selanjutnya.
+                        </p>
+                    </div>
+                `;
+                btn.innerText = "Selesaikan Kasus & Kembali";
+                btn.className = "bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(16,185,129,0.15)] cursor-pointer";
+                btn.setAttribute('onclick', 'backToHub()');
+            } else {
+                content.innerHTML = `
+                    <div class="text-center space-y-6 py-8">
+                        <div class="inline-flex p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-full text-4xl mb-2">❌</div>
+                        <h2 class="text-2xl font-bold heading-font text-red-400">ANALISIS GAGAL TOTAL</h2>
+                        <p class="text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
+                            Terdapat mata rantai logika formal atau deduksi tersangka yang tidak sinkron. Mahkamah Siber menolak kesimpulan Anda karena dianggap cacat logika.
+                        </p>
+                    </div>
+                `;
+                btn.innerText = "Ulangi Analisis Kasus";
+                btn.className = "bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer";
+                btn.setAttribute('onclick', 'resetCase()');
+            }
+        }
+
+        function resetCase() {
+            currentScreen = 1;
+            answersState = { 2: [], 3: [], 4: null, 5: null, 6: null, 7: [], 8: null, 9: null, 10: null, 12: null };
+            feedbackState = { 2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null, 9: null, 10: null, 12: null };
+            
+            const btn = document.getElementById('btnAction');
+            btn.className = "bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(217,119,6,0.15)] cursor-pointer";
+            renderScreen();
+        }
+
         function backToHub() {
             window.location.href = "../investigasi-menu.html";
         }
 
-        // Initialize Game View
-        renderScreen();
+        // Jalankan inisialisasi awal saat halaman termuat dengan aman
+        window.onload = function() {
+            renderScreen();
+        };
     </script>
 </body>
 </html>
