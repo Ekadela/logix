@@ -36,18 +36,21 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             
-            <a href="case1.html" class="group bg-slate-900 border border-slate-800 hover:border-red-500/50 p-6 rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,68,68,0.05)] flex flex-col justify-between min-h-[180px]">
+            <a href="case/case1.html" class="group bg-slate-900 border border-slate-800 hover:border-red-500/50 p-6 rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(239,68,68,0.05)] flex flex-col justify-between min-h-[180px]">
                 <div>
                     <div class="flex justify-between items-start mb-3">
                         <span class="text-xs font-bold text-red-400 font-mono code-font">CASE 01 // ACTIVE</span>
-                        <span class="text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded font-mono">Tingkat: Dasar</span>
+                        <div class="flex items-center gap-2">
+                            <span id="badgeCase1" class="hidden text-[10px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded border border-emerald-500/30 font-bold font-mono">SOLVED</span>
+                            <span class="text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded font-mono">Tingkat: Dasar</span>
+                        </div>
                     </div>
                     <h3 class="text-xl font-bold text-slate-200 group-hover:text-red-400 transition-colors">The Missing Answer Key</h3>
-                    <p class="text-xs text-slate-400 mt-2 leading-relaxed">Kunci jawaban ujian matematika hilang dari ruang guru. Analisis alibi 5 tersangka menggunakan teori Proposisi, Negasi, Konjungsi, dan Disjungsi.</p>
+                    <p class="text-xs text-slate-400 mt-2 leading-relaxed">Kunci jawaban ujian matematika hilang dari ruang guru. Analisis alibi 5 tersangka menggunakan teori Proposisi, Negasi, Konjungsi, dan Disjunsi.</p>
                 </div>
                 <div class="mt-4 pt-3 border-t border-slate-800/60 flex justify-between items-center text-xs font-mono text-slate-500">
                     <span>Target: Cari Pencuri Berjaket</span>
-                    <span class="text-red-400 group-hover:translate-x-1 transition-transform">Mulai Investigasi &rarr;</span>
+                    <span id="textAction1" class="text-red-400 group-hover:translate-x-1 transition-transform">Mulai Investigasi &rarr;</span>
                 </div>
             </a>
 
@@ -99,6 +102,21 @@
     <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500 font-mono">
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
+
+    <script>
+        // Ambil data session user aktif
+        const currentUser = sessionStorage.getItem('logix_username') || 'guest';
+        
+        // Cek apakah user ini sudah sukses memecahkan Case 1
+        const case1Selesai = localStorage.getItem(`${currentUser}_case1_done`) === 'true';
+        
+        // Jika sudah selesai, berikan badge SOLVED secara visual
+        if (case1Selesai) {
+            document.getElementById('badgeCase1').classList.remove('hidden');
+            document.getElementById('textAction1').innerText = "Tinjau Ulang Kasus &rarr;";
+            document.getElementById('textAction1').classList.replace('text-red-400', 'text-emerald-400');
+        }
+    </script>
 
 </body>
 </html>
