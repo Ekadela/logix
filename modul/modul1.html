@@ -249,9 +249,16 @@
             }
         }
 
-        function goToNextModul() {
-            window.location.href = "modul2.html";
-        }
+    	function goToNextModul() {
+    		const currentUser = sessionStorage.getItem('logix_username') || 'guest';
+    
+    		// PENTING: Tandai Modul 1 sudah selesai sebelum pindah
+    		localStorage.setItem(`${currentUser}_modul1_done`, 'true');
+    
+    		// Pindah ke Modul 2
+    		window.location.href = "modul2.html"; 
+		}
+
     </script>
 
 </body>
