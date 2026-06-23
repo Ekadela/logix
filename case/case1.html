@@ -15,12 +15,10 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-amber-500/30">
 
-    <!-- NAVIGATION BAR -->
     <nav class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md sticky top-0 z-50">
         <div class="container mx-auto max-w-4xl px-6 h-16 flex items-center justify-between">
-            <!-- Berubah menjadi ../materi.html karena file berada di dalam folder case/ -->
-            <a href="../materi.html" class="text-slate-400 hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">
-                &larr; Kembali ke Menu Utama
+            <a href="../investigasi-menu.html" class="text-slate-400 hover:text-white transition-colors text-sm font-semibold flex items-center gap-1">
+                &larr; Kembali ke Menu Investigasi
             </a>
             <div class="text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1 rounded-full code-font tracking-wider">
                 KASUS 01 // INVESTIGASI AKTIF
@@ -28,22 +26,23 @@
         </div>
     </nav>
 
-    <!-- MAIN GAME INTERFACE -->
     <main class="container mx-auto max-w-3xl px-6 py-10 flex-grow flex flex-col justify-center">
         
         <div class="bg-slate-900/50 border border-slate-800/80 rounded-3xl p-6 md:p-8 shadow-2xl backdrop-blur-sm min-h-[450px] flex flex-col justify-between">
             
-            <!-- Dynamic Screen Wrapper -->
             <div id="gameContent" class="space-y-6">
-                <!-- Konten Screen akan di-render secara dinamis oleh JavaScript -->
-            </div>
+                </div>
 
-            <!-- Global Feedback Area & Navigation -->
             <div class="border-t border-slate-800/60 pt-6 mt-6">
                 <div id="feedbackBox" class="hidden mb-4 p-4 rounded-xl text-sm leading-relaxed transition-all duration-300"></div>
                 
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center w-full">
+                    <button id="btnBack" onclick="handleBack()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition-all disabled:opacity-0 disabled:cursor-not-allowed cursor-pointer">
+                        &larr; Kembali
+                    </button>
+                    
                     <span id="screenIndicator" class="text-xs font-mono text-slate-500">SCREEN 1 / 13</span>
+                    
                     <button id="btnAction" onclick="handleAction()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(217,119,6,0.15)] cursor-pointer">
                         Mulai Investigasi
                     </button>
@@ -54,12 +53,10 @@
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-500 font-mono">
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
-    <!-- GAME CORE ENGINE SCRIPTS -->
     <script>
         // Session Handling
         const currentUser = sessionStorage.getItem('logix_username') || 'guest';
@@ -91,12 +88,22 @@
             const content = document.getElementById('gameContent');
             const indicator = document.getElementById('screenIndicator');
             const btn = document.getElementById('btnAction');
+            const btnBack = document.getElementById('btnBack');
             const feedbackBox = document.getElementById('feedbackBox');
             
             feedbackBox.classList.add('hidden'); 
             indicator.innerText = `SCREEN ${currentScreen} / 13`;
             selectedAnswers = [];
             singleAnswer = null;
+
+            // Manajemen Visibilitas Tombol Kembali Ke Screen Sebelumnya
+            if (currentScreen === 1 || currentScreen === 11 || currentScreen === 13) {
+                btnBack.disabled = true;
+                btnBack.style.opacity = '0';
+            } else {
+                btnBack.disabled = false;
+                btnBack.style.opacity = '1';
+            }
 
             switch(currentScreen) {
                 case 1:
@@ -373,7 +380,6 @@
                                 <p class="text-xs text-slate-400 mt-1 leading-relaxed">Seluruh bukti telah berhasil dikumpulkan. Sebelum menentukan pelaku, periksa kembali kesaksian dan bukti yang tersedia. Perhatikan siapa yang memiliki alibi yang didukung bukti dan siapa yang masih memiliki keterkaitan dengan lokasi kejadian.</p>
                             </div>
                             
-                            <!-- Tabbed System -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3">
                                     <span class="text-xs font-bold text-slate-400 block mb-2 font-mono">// DAFTAR TERSANGKA</span>
@@ -397,7 +403,6 @@
                                 </div>
                             </div>
 
-                            <!-- Screen Modal Detail Viewer Box -->
                             <div id="boardViewer" class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-4 min-h-[110px] text-xs flex flex-col justify-center items-center text-slate-500 text-center italic">
                                 Klik nama tersangka atau berkas bukti di atas untuk menampilkan rangkuman intelijen kasus secara detail.
                             </div>
@@ -425,7 +430,7 @@
                     break;
 
                 case 13:
-                    // SCREEN REVEAL AKHIR (Berhasil / Gagal)
+                    // SCREEN REVEAL AKHIR (Berhasil / Gagal di-handle fungsi renderRevealScreen)
                     break;
             }
         }
@@ -465,6 +470,16 @@
             else selectedAnswers.push(val);
         }
 
+        // Fungsi mundur ke screen sebelumnya
+        function handleBack() {
+            if (currentScreen > 1) {
+                currentScreen--;
+                // Kembalikan fungsionalitas tombol utama ke validasi normal jika user mundur dari posisi "Lanjutkan ->"
+                document.getElementById('btnAction').setAttribute('onclick', 'handleAction()');
+                renderScreen();
+            }
+        }
+
         function setRadioValue(val) {
             singleAnswer = val;
         }
@@ -476,7 +491,6 @@
             // --- VALIDASI SCREEN 2 ---
             if(currentScreen === 2) {
                 if(selectedAnswers.length === 0) { alert("Pilih jawaban sebelum memverifikasi!"); return; }
-                // Jawaban Benar: Semua benar (5 orang terpilih)
                 if(selectedAnswers.length === 5) {
                     showFeedback(true, "Semua pernyataan di atas dapat dinilai benar atau salah sehingga termasuk proposisi.");
                 } else {
@@ -487,7 +501,6 @@
             // --- VALIDASI SCREEN 3 ---
             else if(currentScreen === 3) {
                 if(selectedAnswers.length === 0) { alert("Pilih jawaban sebelum memverifikasi!"); return; }
-                // Jawaban Benar: 1, 3, 5
                 let isCorrect = selectedAnswers.includes('1') && selectedAnswers.includes('3') && selectedAnswers.includes('5') && selectedAnswers.length === 3;
                 if(isCorrect) {
                     showFeedback(true, "Hanya pernyataan (1, 3, 5) yang memiliki nilai benar atau salah yang dapat digunakan sebagai fakta investigasi.");
@@ -529,7 +542,6 @@
             // --- VALIDASI SCREEN 7 ---
             else if(currentScreen === 7) {
                 if(selectedAnswers.length === 0) { alert("Pilih opsi komponen!"); return; }
-                // Jawaban Benar: Hanya "Berada di laboratorium" saja yang tercentang
                 let isCorrect = selectedAnswers.includes('lab') && !selectedAnswers.includes('tugas');
                 if(isCorrect) {
                     showFeedback(true, "Kata 'dan' merupakan konjungsi. Agar seluruh pernyataan benar, kedua bagian harus terbukti benar. Saat ini hanya bagian pertama yang memiliki bukti.");
@@ -583,12 +595,10 @@
             // Pindah Screen jika lolos validasi kuis
             currentScreen++;
             if(currentScreen <= 12) {
-                // Beri jeda sedikit agar user bisa membaca feedback sistem sebelum lanjut
                 if(fb.classList.contains('hidden')) {
                     renderScreen();
                 } else {
                     document.getElementById('btnAction').innerText = "Lanjutkan &rarr;";
-                    // Hapus fungsi lama agar tidak menumpuk kuis berulang
                     document.getElementById('btnAction').setAttribute('onclick', 'forceNext()');
                 }
             }
@@ -617,11 +627,13 @@
             const content = document.getElementById('gameContent');
             const indicator = document.getElementById('screenIndicator');
             const btn = document.getElementById('btnAction');
+            const btnBack = document.getElementById('btnBack');
             
             indicator.innerText = `SCREEN 13 / 13 // REVEAL`;
+            btnBack.style.opacity = '0';
+            btnBack.disabled = true;
 
             if(isVictory) {
-                // SIMPAN PROGRES DI LOCALSTORAGE UNTUK USER AKTIF
                 localStorage.setItem(`${currentUser}_case1_done`, 'true');
 
                 btn.innerText = "Selesaikan Modul Kasus";
@@ -664,9 +676,9 @@
             }
         }
 
+        // Tautan diarahkan kembali menuju investigasi-menu.html
         function backToHub() {
-            // Kembali ke halaman materi di root folder
-            window.location.href = "../materi.html";
+            window.location.href = "../investigasi-menu.html";
         }
 
         // Initialize Game View
