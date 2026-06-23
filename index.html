@@ -98,7 +98,7 @@
         <p>&copy; 2026 Tim LOGIX — Universitas Negeri Surabaya.</p>
     </footer>
 
-            <script>
+    <script>
         function openLoginModal() {
             document.getElementById('loginModal').classList.remove('hidden');
         }
@@ -142,9 +142,6 @@
             
             checkUserStatus();
             closeLoginModal();
-            } else {
-                alert("Nama agen tidak boleh kosong!");
-            }
         }
 
         function checkUserStatus() {
@@ -153,10 +150,10 @@
             const welcomeText = document.getElementById('welcomeText');
 
             if (savedUser) {
-                btnNav.innerText = `🕵️‍♂️ ${savedUser}`;
+                btnNav.innerText = `🕵️‍♂️ ${savedUser.toUpperCase()}`;
                 btnNav.classList.remove('text-amber-400', 'border-amber-500/70');
                 btnNav.classList.add('text-emerald-400', 'border-emerald-500/50');
-                welcomeText.innerHTML = `Halo <strong class="text-amber-500">${savedUser}</strong>, selamat datang di LOGIX Academy! Siapkan analisis tajammu untuk memecahkan misteri kasus diskrit hari ini.`;
+                welcomeText.innerHTML = `Halo <strong class="text-amber-500">${savedUser.toUpperCase()}</strong>, selamat datang di LOGIX Academy! Siapkan analisis tajammu untuk memecahkan misteri kasus diskrit hari ini.`;
             } else {
                 btnNav.innerText = 'Login';
                 btnNav.classList.remove('text-emerald-400', 'border-emerald-500/50');
@@ -176,8 +173,16 @@
             }
         }
 
+        // Shortcut keyboard: Tekan enter langsung memicu saveLogin saat modal aktif
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !document.getElementById('loginModal').classList.contains('hidden')) {
+                saveLogin();
+            }
+        });
+
         window.onload = checkUserStatus;
     </script>
+
 
 </body>
 </html>
