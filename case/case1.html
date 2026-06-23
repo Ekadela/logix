@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;600;700;800&family=JetBrains+Mono:wght=400;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .code-font { font-family: 'JetBrains Mono', monospace; }
@@ -38,7 +38,7 @@
                 
                 <div class="flex justify-between items-center w-full">
                     <button id="btnBack" onclick="handleBack()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition-all disabled:opacity-0 disabled:cursor-not-allowed cursor-pointer">
-                        &larr; Kembali
+                        &larr; Ke Papan Kasus
                     </button>
                     
                     <span id="screenIndicator" class="text-xs font-mono text-slate-500">SCREEN 1 / 13</span>
@@ -96,13 +96,13 @@
             selectedAnswers = [];
             singleAnswer = null;
 
-            // Manajemen Visibilitas Tombol Kembali Ke Screen Sebelumnya
-            if (currentScreen === 1 || currentScreen === 11 || currentScreen === 13) {
-                btnBack.disabled = true;
-                btnBack.style.opacity = '0';
-            } else {
+            // Manajemen Visibilitas Tombol Kembali (Hanya muncul di Screen 12 ke atas)
+            if (currentScreen >= 12) {
                 btnBack.disabled = false;
                 btnBack.style.opacity = '1';
+            } else {
+                btnBack.disabled = true;
+                btnBack.style.opacity = '0';
             }
 
             switch(currentScreen) {
@@ -470,11 +470,11 @@
             else selectedAnswers.push(val);
         }
 
-        // Fungsi mundur ke screen sebelumnya
+        // Fungsi kembali (Langsung lompat ke Screen 11 / Investigation Board)
         function handleBack() {
-            if (currentScreen > 1) {
-                currentScreen--;
-                // Kembalikan fungsionalitas tombol utama ke validasi normal jika user mundur dari posisi "Lanjutkan ->"
+            if (currentScreen >= 12) {
+                currentScreen = 11;
+                // Kembalikan fungsionalitas tombol utama ke validasi normal
                 document.getElementById('btnAction').setAttribute('onclick', 'handleAction()');
                 renderScreen();
             }
@@ -572,7 +572,7 @@
             }
             // --- VALIDASI SCREEN 10 ---
             else if(currentScreen === 10) {
-                if(!singleAnswer) { alert("Pilih tersangka!"); return; }
+                if(!singleAnswer) { alert("Tersangka belum dipilih!"); return; }
                 if(singleAnswer === 'Celyn') {
                     showFeedback(true, "Saat ini Celyn menjadi orang yang paling sesuai dengan bukti atribut jaket yang ditemukan.");
                 } else {
@@ -630,11 +630,12 @@
             const btnBack = document.getElementById('btnBack');
             
             indicator.innerText = `SCREEN 13 / 13 // REVEAL`;
-            btnBack.style.opacity = '0';
-            btnBack.disabled = true;
-
+            
+            // Tombol kembali tetap muncul di Screen 13 jika pemain kalah/gagal, untuk memfasilitasi peninjauan ulang
             if(isVictory) {
                 localStorage.setItem(`${currentUser}_case1_done`, 'true');
+                btnBack.style.opacity = '0';
+                btnBack.disabled = true;
 
                 btn.innerText = "Selesaikan Modul Kasus";
                 btn.setAttribute('onclick', 'backToHub()');
@@ -658,6 +659,9 @@
                     </div>
                 `;
             } else {
+                btnBack.style.opacity = '1';
+                btnBack.disabled = false;
+
                 btn.innerText = "Ulangi Analisis Papan Kasus";
                 btn.setAttribute('onclick', 'window.location.reload()');
                 btn.className = "bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all cursor-pointer";
