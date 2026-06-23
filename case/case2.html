@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case 2: Misteri Ruang Arsip</title>
+    <style>
+        /* 🎨 TEMA VISUAL: Malam Hari di Sekolah 🌙 */
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-red: #f87171;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background-color: var(--bg-card);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid #334155;
+        }
+
+        h1, h2, h3 {
+            color: var(--accent-blue);
+            margin-top: 0;
+        }
+
+        .header-case {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        /* 🔘 UTALITAS BUTTON */
+        button {
+            background-color: var(--accent-blue);
+            color: #0f172a;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+        }
+
+        /* 📝 KUIS & OPSI */
+        .quiz-container {
+            background-color: rgba(15, 23, 42, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .option-label {
+            display: block;
+            background-color: #1e293b;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid #475569;
+            transition: background 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: var(--bg-card-hover);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .feedback.correct { background-color: rgba(74, 222, 128, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+        .feedback.incorrect { background-color: rgba(248, 113, 113, 0.2); color: var(--accent-red); border: 1px solid var(--accent-red); }
+
+        /* 🗂️ SCREEN 8: DASHBOARD INVESTIGASI */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-layout { grid-template-columns: 1fr; }
+        }
+
+        .dash-column h3 {
+            border-bottom: 2px solid #334155;
+            padding-bottom: 8px;
+        }
+
+        .clickable-item {
+            background-color: #0f172a;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid #334155;
+            transition: all 0.2s;
+        }
+
+        .clickable-item:hover {
+            border-color: var(--accent-blue);
+            background-color: var(--bg-card-hover);
+        }
+
+        /* 🔍 PANEL DETAIL MODAL/BOX */
+        .detail-panel {
+            grid-column: 1 / -1;
+            background-color: #0f172a;
+            border: 1px dashed var(--accent-blue);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- SCREEN 1: OPENING STORY -->
+        <div id="screen-1" class="screen">
+            <div class="header-case">Case 2</div>
+            <h1>Misteri Ruang Arsip 🕵️‍♂️</h1>
+            <p><strong>Senin pagi</strong>, pihak sekolah menemukan bahwa ruang arsip akademik pernah dibuka pada malam hari di luar jam operasional. 🏫🌙</p>
+            <p>Tidak ada dokumen yang hilang, tetapi sistem keamanan mencatat adanya aktivitas akses. Berdasarkan informasi awal, hanya satu orang yang memberikan keterangan palsu.</p>
+            <p>Tugasmu adalah menemukan siapa orang tersebut menggunakan prinsip logika matematika!</p>
+            <button onclick="nextScreen(2)">Mulai Investigasi</button>
+        </div>
+
+        <!-- SCREEN 8: BOARD INVESTIGASI (DASHBOARD UTAMA) -->
+        <div id="screen-8" class="screen hidden">
+            <div class="header-case">Papan Investigasi</div>
+            <h2>📋 Dashboard Analisis Bukti</h2>
+            <p>Seluruh bukti telah dikumpulkan. Sebelum menentukan siapa yang memberikan keterangan palsu di menu keputusan akhir, klik setiap <strong>Karakter</strong> dan <strong>Bukti</strong> di bawah ini untuk menganalisis hubungan logika mereka.</p>
+            
+            <div class="dashboard-layout">
+                <!-- Kolom Karakter -->
+                <div class="dash-column">
+                    <h3>👥 Daftar Suspek</h3>
+                    <div class="clickable-item" onclick="showDetail('char', 'james')">James</div>
+                    <div class="clickable-item" onclick="showDetail('char', 'anne')">Anne</div>
+                    <div class="clickable-item" onclick="showDetail('char', 'martin')">Martin</div>
+                    <div class="clickable-item" onclick="showDetail('char', 'zea')">Zea</div>
+                    <div class="clickable-item" onclick="showDetail('char', 'edward')">Edward</div>
+                </div>
+
+                <!-- Kolom Bukti -->
+                <div class="dash-column">
+                    <h3>📂 Berkas Bukti & Fakta</h3>
+                    <div class="clickable-item" onclick="showDetail('ev', 'log')">Log Kartu Akses</div>
+                    <div class="clickable-item" onclick="showDetail('ev', 'cctv')">Rekaman CCTV Koridor</div>
+                    <div class="clickable-item" onclick="showDetail('ev', 'perpus')">Data Perpustakaan</div>
+                    <div class="clickable-item" onclick="showDetail('ev', 'aturan')">Aturan Sistem</div>
+                    <div class="clickable-item" onclick="showDetail('ev', 'fakta')">Fakta Tambahan</div>
+                </div>
+
+                <!-- Panel Detail Dinamis -->
+                <div id="detail-panel" class="detail-panel">
+                    <h4 id="detail-title" style="margin-top:0; color:var(--accent-green);"></h4>
+                    <div id="detail-content"></div>
+                </div>
+            </div>
+
+            <button onclick="nextScreen(9)" style="width: 100%; margin-top: 25px; background-color: var(--accent-green);">Saya Siap Menjawab ➡️</button>
+        </div>
+
+        <!-- SCREEN 9: FINAL DECISION -->
+        <div id="screen-9" class="screen hidden">
+            <div class="header-case">Keputusan Akhir</div>
+            <h2>⚖️ Siapa yang Memberikan Keterangan Palsu?</h2>
+            <p>Gunakan analisis dari papan investigasi tadi untuk menunjuk pelaku utama yang berbohong.</p>
+            
+            <div class="quiz-container">
+                <label class="option-label"><input type="radio" name="final-target" value="james"> James</label>
+                <label class="option-label"><input type="radio" name="final-target" value="anne"> Anne</label>
+                <label class="option-label"><input type="radio" name="final-target" value="martin"> Martin</label>
+                <label class="option-label"><input type="radio" name="final-target" value="zea"> Zea</label>
+                <label class="option-label"><input type="radio" name="final-target" value="edward"> Edward</label>
+                
+                <div id="feedback-9" class="feedback"></div>
+                <button onclick="checkFinalDecision()">Kunci Jawaban</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 10: ALASAN KESIMPULAN -->
+        <div id="screen-10" class="screen hidden">
+            <div class="header-case">Evaluasi Logika</div>
+            <h2>🧠 Mengapa Edward Terbukti Berbohong?</h2>
+            <p>Pilih argumen dasar logika matematika yang paling tepat mendasari kesalahan Edward.</p>
+            
+            <div class="quiz-container">
+                <label class="option-label"><input type="radio" name="reason" value="A"> A. Log akses dan CCTV bertentangan dengan kesaksiannya.</label>
+                <label class="option-label"><input type="radio" name="reason" value="B"> B. Anne mengatakan demikian.</label>
+                <label class="option-label"><input type="radio" name="reason" value="C"> C. Martin mengatakan demikian.</label>
+                
+                <div id="feedback-10" class="feedback"></div>
+                <button onclick="checkReason()">Kunci Alasan</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 11: REVEAL CASE SOLVED -->
+        <div id="screen-11" class="screen hidden" style="text-align: center;">
+            <h1 style="color: var(--accent-green); font-size: 2.5rem; margin-bottom: 10px;">🎉 CASE SOLVED 🎉</h1>
+            <div style="font-size: 4rem; margin: 20px 0;">🔓🔍</div>
+            <p style="text-align: left; background: #0f172a; padding: 20px; border-radius: 8px; border: 1px solid #334155;">
+                <strong>Penjelasan Logika Pemecahan Kasus:</strong><br><br>
+                Edward menyatakan negasi: <em>"Aku tidak pernah mendekati ruang arsip."</em><br><br>
+                Namun, <strong>Log Kartu Akses</strong> mencatat namanya aktif pada pukul 19.18. Berdasarkan <strong>Aturan Biimplikasi (#2)</strong>, seseorang berada di ruang arsip jika dan hanya jika menggunakan kartu resmi. Ditambah lagi, rekaman <strong>CCTV Koridor</strong> mengonfirmasi kehadiran fisiknya berjalan ke arah sana.<br><br>
+                Karena bukti-bukti tersebut valid (bernilai benar), pernyataan ingkaran Edward terbukti memuat nilai kebenaran yang <strong>Salah (Palsu)</strong>. Selamat, kamu berhasil menuntaskan misi logika ini!
+            </p>
+            <button onclick="restartGame()" style="background-color: var(--text-muted);">Main Lagi</button>
+        </div>
+    </div>
+
+    <!-- 🧠 LOGIKA PERMAINAN (JAVASCRIPT) -->
+    <script>
+        // Database Data untuk Dashboard Screen 8
+        const dataInvestigasi = {
+            char: {
+                james: {
+                    title: "Profil Suspek: James",
+                    html: `<p><strong>Kesaksian:</strong> "Aku tidak berada di ruang arsip malam itu."</p>
+                           <p><strong>Bukti yang Berhubungan:</strong> Belum ditemukan bukti yang secara langsung mendukung atau membantah pernyataan James.</p>
+                           <p><strong>Status:</strong> Belum dapat dipastikan.</p>
+                           <p><strong>Catatan:</strong> Saat ini tidak ada data log kartu atau CCTV yang melibatkan James.</p>`
+                },
+                anne: {
+                    title: "Profil Suspek: Anne",
+                    html: `<p><strong>Kesaksian:</strong> "Aku berada di perpustakaan selama satu jam penuh."</p>
+                           <p><strong>Bukti yang Berhubungan:</strong> ✓ Data Perpustakaan (Pinjam buku 19.10), ✓ CCTV Koridor (Menuju perpustakaan).</p>
+                           <p><strong>Status:</strong> Didukung bukti kuat.</p>`
+                },
+                martin: {
+                    title: "Profil Suspek: Martin",
+                    html: `<p><strong>Kesaksian:</strong> "Jika aku masuk ruang arsip, maka kartuku pasti tercatat."</p>
+                           <p><strong>Bukti yang Berhubungan:</strong> ✓ Log Kartu Akses (Tercatat 19.18).</p>
+                           <p><strong>Status:</strong> Konsisten dengan bukti.</p>
+                           <p><strong>Analisis:</strong> Pernyataannya berbentuk <em>Implikasi</em> yang bernilai benar karena syarat konsekuennya terpenuhi.</p>`
+                },
+                zea: {
+                    title: "Profil Suspek: Zea",
+                    html: `<p><strong>Kesaksian:</strong> "Aku melihat Edward berada di koridor dekat ruang arsip."</p>
+                           <p><strong>Bukti yang Berhubungan:</strong> ✓ Rekaman CCTV Koridor memverifikasi pergerakan Edward.</p>
+                           <p><strong>Status:</strong> Didukung bukti.</p>`
+                },
+                edward: {
+                    title: "Profil Suspek: Edward",
+                    html: `<p><strong>Kesaksian:</strong> "Aku tidak pernah mendekati ruang arsip."</p>
+                           <p style="color:var(--accent-red);"><strong>Bukti Kontradiktif:</strong> ❌ Log Kartu Akses (Aktif 19.18), ❌ CCTV (Berjalan ke arah koridor arsip).</p>
+                           <p><strong>Status:</strong> Kontradiksi / Sangat Mencurigakan.</p>`
+                }
+            },
+            ev: {
+                log: {
+                    title: "Berkas: Log Kartu Akses",
+                    html: `<p><strong>Data Tercatat:</strong><br>• 19.18 - Martin<br>• 19.18 - Edward</p>
+                           <p><strong>Hubungan Aturan:</strong> Hubungan struktural masuk ruangan diatur oleh sistem otomatis kartu digital.</p>`
+                },
+                cctv: {
+                    title: "Berkas: Rekaman CCTV Koridor",
+                    html: `<p><strong>Hasil Analisis Video:</strong><br>• Anne berjalan menuju perpustakaan.<br>• Zea berjalan menuju ruang media.<br>• Edward terlihat berjalan ke arah koridor ruang arsip.</p>`
+                },
+                perpus: {
+                    title: "Berkas: Catatan Perpustakaan",
+                    html: `<p><strong>Data Log Sistem:</strong> Pukul 19.10, Anne melakukan transaksi peminjaman buku fisik menggunakan kartu anggota perpustakaan digitalnya.</p>`
+                },
+                aturan: {
+                    title: "Berkas: Regulasi Hukum Aturan Sistem",
+                    html: `<p><strong>Aturan #1 (Implikasi):</strong> Jika seseorang memasuki ruang arsip, maka kartu aksesnya akan tercatat.</p>
+                           <p><strong>Aturan #2 (Biimplikasi):</strong> Seseorang berada di ruang arsip jika dan hanya jika ia menggunakan kartu akses resmi.</p>`
+                },
+                fakta: {
+                    title: "Berkas: Fakta Tambahan Penyelidik",
+                    html: `<p><strong>Pernyataan Komandan Keamanan:</strong> "Saya telah memeriksa seluruh laporan. Dan saya yakin hanya ada SATU orang yang memberikan keterangan palsu di antara kelima suspek."</p>`
+                }
+            }
+        };
+
+        // Fungsi Navigasi Antar Screen
+        function nextScreen(screenId) {
+            // Sesuai instruksimu, kita lompat langsung dari alur cerita awal ke screen 8 dashboard
+            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`screen-${screenId}`).classList.remove('hidden');
+        }
+
+        // Fungsi Menampilkan Detail Konten di Dashboard (Screen 8)
+        function showDetail(type, key) {
+            const panel = document.getElementById('detail-panel');
+            const title = document.getElementById('detail-title');
+            const content = document.getElementById('detail-content');
+
+            const item = dataInvestigasi[type][key];
+            title.innerText = item.title;
+            content.innerHTML = item.html;
+            
+            panel.style.display = 'block';
+        }
+
+        // Validasi Jawaban Screen 9 (Final Decision)
+        function checkFinalDecision() {
+            const selected = document.querySelector('input[name="final-target"]:checked');
+            const fb = document.getElementById('feedback-9');
+            
+            if (!selected) {
+                fb.className = "feedback incorrect";
+                fb.innerText = "Pilihlah salah satu suspek terlebih dahulu!";
+                fb.style.display = "block";
+                return;
+            }
+
+            if (selected.value === "edward") {
+                fb.className = "feedback correct";
+                fb.innerText = "Benar! Edward memberikan keterangan palsu. Lanjut ke penentuan argumentasi.";
+                fb.style.display = "block";
+                setTimeout(() => nextScreen(10), 1500);
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = "Jawaban belum tepat. Periksa kembali hubungan antara CCTV, Log Akses, dan kesaksian di papan investigasi.";
+                fb.style.display = "block";
+            }
+        }
+
+        // Validasi Jawaban Screen 10 (Alasan)
+        function checkReason() {
+            const selected = document.querySelector('input[name="reason"]:checked');
+            const fb = document.getElementById('feedback-10');
+
+            if (!selected) {
+                fb.className = "feedback incorrect";
+                fb.innerText = "Pilihlah salah satu alasan!";
+                fb.style.display = "block";
+                return;
+            }
+
+            if (selected.value === "A") {
+                fb.className = "feedback correct";
+                fb.innerText = "Tepat sekali! Evaluasi berbasis data empiris memvalidasi kesalahan logika subjek.";
+                fb.style.display = "block";
+                setTimeout(() => nextScreen(11), 1500);
+            } else {
+                fb.className = "feedback incorrect";
+                fb.innerText = "Alasan salah. Opini subjektif karakter lain tidak bisa dijadikan landasan hukum pembuktian logika.";
+                fb.style.display = "block";
+            }
+        }
+
+        // Reset Game
+        function restartGame() {
+            document.querySelectorAll('input').forEach(i => i.checked = false);
+            document.querySelectorAll('.feedback').forEach(f => f.style.display = 'none');
+            document.getElementById('detail-panel').style.display = 'none';
+            nextScreen(1);
+        }
+    </script>
+</body>
+</html>
